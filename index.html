@@ -1,1186 +1,1871 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Eliza Ledwell — Geospatial AI & Environmental Research</title>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --navy:    #0f2240;
-      --navy2:   #1b3a6b;
-      --teal:    #0d6b5a;
-      --teal2:   #12897a;
-      --aqua:    #3ec9b0;
-      --sand:    #f5f0e8;
-      --warm:    #ede8dc;
-      --paper:   #faf8f4;
-      --ink:     #1a1a2e;
-      --muted:   #6b7280;
-      --accent:  #e8734a;
-      --gold:    #c8a84b;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Eliza Ledwell — Geospatial AI & Environmental Research</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --navy: #0f2240;
+        --navy2: #1b3a6b;
+        --teal: #0d6b5a;
+        --teal2: #12897a;
+        --aqua: #3ec9b0;
+        --sand: #f5f0e8;
+        --warm: #ede8dc;
+        --paper: #faf8f4;
+        --ink: #1a1a2e;
+        --muted: #6b7280;
+        --accent: #e8734a;
+        --gold: #c8a84b;
+      }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
-    html { scroll-behavior: smooth; }
+      html {
+        scroll-behavior: smooth;
+      }
 
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--paper);
-      color: var(--ink);
-      overflow-x: hidden;
-    }
+      body {
+        font-family: "DM Sans", sans-serif;
+        background: var(--paper);
+        color: var(--ink);
+        overflow-x: hidden;
+      }
 
-    /* ── NAV ─────────────────────────────────────────────── */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1rem 3rem;
-      background: rgba(250,248,244,0.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(15,34,64,0.08);
-    }
-    .nav-logo {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.1rem;
-      color: var(--navy);
-      letter-spacing: 0.02em;
-    }
-    .nav-links {
-      display: flex;
-      gap: 2.5rem;
-      list-style: none;
-    }
-    .nav-links a {
-      font-size: 0.82rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--teal); }
+      /* ── NAV ─────────────────────────────────────────────── */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 3rem;
+        background: rgba(250, 248, 244, 0.92);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid rgba(15, 34, 64, 0.08);
+      }
+      .nav-logo {
+        font-family: "DM Serif Display", serif;
+        font-size: 1.1rem;
+        color: var(--navy);
+        letter-spacing: 0.02em;
+      }
+      .nav-links {
+        display: flex;
+        gap: 2.5rem;
+        list-style: none;
+      }
+      .nav-links a {
+        font-size: 0.82rem;
+        font-weight: 500;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--muted);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      .nav-links a:hover {
+        color: var(--teal);
+      }
 
-    /* ── HERO ─────────────────────────────────────────────── */
-    .hero {
-      min-height: 100vh;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      position: relative;
-      overflow: hidden;
-    }
-    .hero-left {
-      background: var(--navy);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 8rem 5rem 5rem 5rem;
-      position: relative;
-    }
-    .hero-left::after {
-      content: '';
-      position: absolute;
-      top: 0; right: -80px; bottom: 0;
-      width: 160px;
-      background: var(--navy);
-      clip-path: polygon(0 0, 40% 0, 100% 100%, 0 100%);
-      z-index: 2;
-    }
-    .hero-tag {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.72rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--aqua);
-      margin-bottom: 1.5rem;
-      opacity: 0;
-      animation: fadeUp 0.8s 0.2s forwards;
-    }
-    .hero-name {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(3rem, 5vw, 4.5rem);
-      line-height: 1.05;
-      color: #fff;
-      margin-bottom: 1.2rem;
-      opacity: 0;
-      animation: fadeUp 0.8s 0.4s forwards;
-    }
-    .hero-name em {
-      font-style: italic;
-      color: var(--aqua);
-    }
-    .hero-subtitle {
-      font-size: 1rem;
-      line-height: 1.7;
-      color: rgba(255,255,255,0.65);
-      max-width: 420px;
-      margin-bottom: 2.5rem;
-      opacity: 0;
-      animation: fadeUp 0.8s 0.6s forwards;
-    }
-    .hero-cta {
-      display: flex;
-      gap: 1rem;
-      opacity: 0;
-      animation: fadeUp 0.8s 0.8s forwards;
-    }
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.75rem 1.8rem;
-      background: var(--aqua);
-      color: var(--navy);
-      font-weight: 600;
-      font-size: 0.85rem;
-      text-decoration: none;
-      letter-spacing: 0.04em;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(62,201,176,0.35);
-    }
-    .btn-outline {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.75rem 1.8rem;
-      border: 1.5px solid rgba(255,255,255,0.3);
-      color: rgba(255,255,255,0.8);
-      font-weight: 500;
-      font-size: 0.85rem;
-      text-decoration: none;
-      letter-spacing: 0.04em;
-      transition: border-color 0.2s, color 0.2s;
-    }
-    .btn-outline:hover { border-color: var(--aqua); color: var(--aqua); }
+      /* ── HAMBURGER / MOBILE NAV ──────────────────────────── */
+      .nav-hamburger {
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        gap: 5px;
+        width: 36px;
+        height: 36px;
+        cursor: pointer;
+        background: none;
+        border: none;
+        padding: 4px;
+        z-index: 200;
+      }
+      .nav-hamburger span {
+        display: block;
+        height: 2px;
+        background: var(--navy);
+        border-radius: 2px;
+        transition:
+          transform 0.3s,
+          opacity 0.3s;
+      }
+      .nav-hamburger.open span:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+      }
+      .nav-hamburger.open span:nth-child(2) {
+        opacity: 0;
+      }
+      .nav-hamburger.open span:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+      }
 
-    .hero-right {
-      background: var(--sand);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 8rem 4rem 5rem 7rem;
-      position: relative;
-    }
-    .hero-stats {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-      opacity: 0;
-      animation: fadeUp 0.8s 1s forwards;
-    }
-    .stat-item {
-      padding: 1.5rem;
-      background: white;
-      border-left: 3px solid var(--teal);
-      box-shadow: 0 2px 16px rgba(0,0,0,0.06);
-    }
-    .stat-num {
-      font-family: 'DM Serif Display', serif;
-      font-size: 2.6rem;
-      color: var(--navy);
-      line-height: 1;
-      margin-bottom: 0.4rem;
-    }
-    .stat-num span { color: var(--teal); }
-    .stat-label {
-      font-size: 0.78rem;
-      font-weight: 500;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-    .hero-map-bg {
-      position: absolute;
-      bottom: 2rem; right: 2rem;
-      width: 200px; height: 200px;
-      opacity: 0.07;
-    }
+      .nav-mobile-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(15, 34, 64, 0.5);
+        z-index: 98;
+      }
+      .nav-mobile-overlay.open {
+        display: block;
+      }
 
-    /* Grid lines decoration */
-    .hero-left::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(62,201,176,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(62,201,176,0.04) 1px, transparent 1px);
-      background-size: 40px 40px;
-      pointer-events: none;
-    }
-
-    /* ── SECTION COMMON ────────────────────────────────────── */
-    section { padding: 6rem 0; }
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 3rem;
-    }
-    .section-label {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.7rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--teal);
-      margin-bottom: 0.8rem;
-    }
-    .section-title {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(2rem, 3.5vw, 2.8rem);
-      color: var(--navy);
-      line-height: 1.15;
-      margin-bottom: 1rem;
-    }
-    .section-intro {
-      font-size: 1rem;
-      line-height: 1.8;
-      color: var(--muted);
-      max-width: 640px;
-      margin-bottom: 3.5rem;
-    }
-
-    /* ── ABOUT ─────────────────────────────────────────────── */
-    #about { background: white; }
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1.2fr 1fr;
-      gap: 5rem;
-      align-items: start;
-    }
-    .about-body {
-      font-size: 1.05rem;
-      line-height: 1.85;
-      color: #3a3a4a;
-    }
-    .about-body p + p { margin-top: 1.2rem; }
-    .about-body strong { color: var(--navy); font-weight: 600; }
-    .skills-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    .skill-tag-group { }
-    .skill-group-label {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.68rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 0.5rem;
-    }
-    .skill-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-    }
-    .tag {
-      display: inline-block;
-      padding: 0.3rem 0.75rem;
-      font-size: 0.78rem;
-      font-weight: 500;
-      border: 1px solid;
-      letter-spacing: 0.02em;
-    }
-    .tag-teal { border-color: var(--teal2); color: var(--teal); background: rgba(18,137,122,0.05); }
-    .tag-navy { border-color: var(--navy2); color: var(--navy2); background: rgba(27,58,107,0.05); }
-    .tag-accent { border-color: var(--accent); color: var(--accent); background: rgba(232,115,74,0.05); }
-
-    /* ── PROJECTS ──────────────────────────────────────────── */
-    #projects { background: var(--paper); }
-    .projects-list {
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-    }
-    .project-card {
-      display: grid;
-      grid-template-columns: 90px 1fr auto;
-      gap: 2rem;
-      align-items: start;
-      background: white;
-      padding: 2.5rem;
-      border: 1px solid rgba(0,0,0,0.07);
-      box-shadow: 0 2px 20px rgba(0,0,0,0.04);
-      transition: transform 0.25s, box-shadow 0.25s;
-      position: relative;
-      overflow: hidden;
-    }
-    .project-card::before {
-      content: '';
-      position: absolute;
-      left: 0; top: 0; bottom: 0;
-      width: 4px;
-      background: var(--teal);
-    }
-    .project-card.highlight::before { background: var(--accent); }
-    .project-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 40px rgba(0,0,0,0.1);
-    }
-    .project-year {
-      font-family: 'DM Serif Display', serif;
-      font-size: 2.2rem;
-      color: var(--navy);
-      opacity: 0.15;
-      line-height: 1;
-      padding-top: 0.25rem;
-    }
-    .project-content {}
-    .project-org {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.68rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--teal);
-      margin-bottom: 0.4rem;
-    }
-    .project-card.highlight .project-org { color: var(--accent); }
-    .project-title {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.4rem;
-      color: var(--navy);
-      margin-bottom: 0.8rem;
-      line-height: 1.2;
-    }
-    .project-desc {
-      font-size: 0.93rem;
-      line-height: 1.8;
-      color: var(--muted);
-      margin-bottom: 1rem;
-    }
-    .project-impact {
-      background: var(--sand);
-      border-left: 3px solid var(--gold);
-      padding: 0.8rem 1rem;
-      font-size: 0.85rem;
-      line-height: 1.6;
-      color: #4a3e20;
-      margin-bottom: 1rem;
-    }
-    .project-impact strong { color: #6b520a; }
-    .project-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.35rem;
-    }
-    .project-badge {
-      padding: 0.2rem 0.6rem;
-      font-size: 0.72rem;
-      font-weight: 500;
-      letter-spacing: 0.05em;
-      background: var(--warm);
-      color: var(--navy);
-      border-radius: 2px;
-    }
-    .project-icon {
-      width: 48px;
-      height: 48px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--sand);
-      font-size: 1.6rem;
-      flex-shrink: 0;
-    }
-
-    /* ── TIMELINE ──────────────────────────────────────────── */
-    #experience { background: var(--navy); }
-    #experience .section-label { color: var(--aqua); }
-    #experience .section-title { color: white; }
-    #experience .section-intro { color: rgba(255,255,255,0.5); }
-    .timeline {
-      position: relative;
-      padding-left: 2.5rem;
-    }
-    .timeline::before {
-      content: '';
-      position: absolute;
-      left: 0; top: 0; bottom: 0;
-      width: 1px;
-      background: linear-gradient(to bottom, var(--aqua), rgba(62,201,176,0.1));
-    }
-    .timeline-item {
-      position: relative;
-      padding: 0 0 3rem 2rem;
-    }
-    .timeline-item::before {
-      content: '';
-      position: absolute;
-      left: -0.35rem;
-      top: 0.4rem;
-      width: 10px; height: 10px;
-      background: var(--aqua);
-      border: 2px solid var(--navy);
-      border-radius: 50%;
-    }
-    .timeline-dates {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.7rem;
-      letter-spacing: 0.12em;
-      color: var(--aqua);
-      margin-bottom: 0.3rem;
-    }
-    .timeline-role {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.25rem;
-      color: white;
-      margin-bottom: 0.2rem;
-    }
-    .timeline-org {
-      font-size: 0.85rem;
-      font-weight: 500;
-      color: rgba(255,255,255,0.45);
-      margin-bottom: 0.8rem;
-    }
-    .timeline-body {
-      font-size: 0.9rem;
-      line-height: 1.75;
-      color: rgba(255,255,255,0.6);
-    }
-    .timeline-body ul {
-      list-style: none;
-      padding: 0;
-      margin-top: 0.5rem;
-    }
-    .timeline-body ul li {
-      padding-left: 1rem;
-      position: relative;
-      margin-bottom: 0.4rem;
-    }
-    .timeline-body ul li::before {
-      content: '→';
-      position: absolute;
-      left: 0;
-      color: var(--aqua);
-      font-size: 0.75rem;
-    }
-
-    /* ── RESEARCH ──────────────────────────────────────────── */
-    #research { background: var(--sand); }
-    .research-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-    }
-    .research-card {
-      background: white;
-      padding: 2rem;
-      border: 1px solid rgba(0,0,0,0.06);
-      transition: box-shadow 0.2s;
-    }
-    .research-card:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.1); }
-    .research-icon {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-    }
-    .research-card h3 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.1rem;
-      color: var(--navy);
-      margin-bottom: 0.6rem;
-      line-height: 1.25;
-    }
-    .research-card p {
-      font-size: 0.88rem;
-      line-height: 1.7;
-      color: var(--muted);
-    }
-
-    /* ── EDUCATION & CERTS ─────────────────────────────────── */
-    #education { background: white; }
-    .edu-grid {
-      display: grid;
-      grid-template-columns: 1.3fr 1fr;
-      gap: 4rem;
-    }
-    .edu-item {
-      border-left: 3px solid var(--teal);
-      padding-left: 1.5rem;
-      margin-bottom: 2rem;
-    }
-    .edu-degree {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.2rem;
-      color: var(--navy);
-      margin-bottom: 0.3rem;
-    }
-    .edu-school {
-      font-size: 0.9rem;
-      font-weight: 500;
-      color: var(--teal);
-      margin-bottom: 0.25rem;
-    }
-    .edu-year {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.72rem;
-      letter-spacing: 0.1em;
-      color: var(--muted);
-      margin-bottom: 0.5rem;
-    }
-    .edu-note {
-      font-size: 0.85rem;
-      line-height: 1.6;
-      color: var(--muted);
-    }
-    .certs-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-    }
-    .cert-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.75rem;
-      padding: 0.9rem 1rem;
-      background: var(--sand);
-      font-size: 0.85rem;
-      color: var(--ink);
-    }
-    .cert-icon { font-size: 1rem; flex-shrink: 0; margin-top: 0.05rem; }
-
-    /* ── CONTACT ───────────────────────────────────────────── */
-    #contact {
-      background: var(--teal);
-      text-align: center;
-      padding: 5rem 0;
-    }
-    #contact .section-label { color: rgba(255,255,255,0.6); }
-    #contact .section-title { color: white; margin-bottom: 1rem; }
-    #contact p { color: rgba(255,255,255,0.7); font-size: 1rem; line-height: 1.7; margin-bottom: 2.5rem; }
-    .contact-links {
-      display: flex;
-      justify-content: center;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-    }
-    .contact-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      padding: 0.8rem 2rem;
-      background: rgba(255,255,255,0.15);
-      color: white;
-      text-decoration: none;
-      font-weight: 500;
-      font-size: 0.9rem;
-      letter-spacing: 0.04em;
-      border: 1px solid rgba(255,255,255,0.3);
-      transition: background 0.2s, border-color 0.2s;
-    }
-    .contact-link:hover { background: rgba(255,255,255,0.25); border-color: white; }
-    .contact-link-dark {
-      background: var(--navy);
-      border-color: var(--navy);
-    }
-    .contact-link-dark:hover { background: var(--navy2); }
-
-    /* ── FOOTER ────────────────────────────────────────────── */
-    footer {
-      background: var(--ink);
-      text-align: center;
-      padding: 2rem;
-      font-family: 'DM Mono', monospace;
-      font-size: 0.72rem;
-      letter-spacing: 0.1em;
-      color: rgba(255,255,255,0.3);
-    }
-
-    /* ── ANIMATIONS ────────────────────────────────────────── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .reveal {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.7s, transform 0.7s;
-    }
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* ── TOPOGRAPHY SVG DECO ───────────────────────────────── */
-    .topo-bg {
-      position: absolute;
-      inset: 0;
-      opacity: 0.04;
-      pointer-events: none;
-      overflow: hidden;
-    }
-
-    /* ── RESPONSIVE ────────────────────────────────────────── */
-    @media (max-width: 900px) {
-      .hero { grid-template-columns: 1fr; }
-      .hero-left::after { display: none; }
-      .hero-right { padding: 3rem 2rem; }
-      .hero-left { padding: 6rem 2rem 3rem; }
-      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-      .research-grid { grid-template-columns: 1fr 1fr; }
-      .edu-grid { grid-template-columns: 1fr; gap: 2rem; }
-      .project-card { grid-template-columns: 1fr; }
-      .project-year { font-size: 1rem; opacity: 0.4; }
-      nav { padding: 1rem 1.5rem; }
-      .nav-links { gap: 1.2rem; }
-      .container { padding: 0 1.5rem; }
-    }
-    @media (max-width: 600px) {
-      .research-grid { grid-template-columns: 1fr; }
-      .hero-stats { grid-template-columns: 1fr 1fr; gap: 1rem; }
-    }
-  </style>
-</head>
-<body>
-
-  <!-- ── NAV ──────────────────────────────────────────────────── -->
-  <nav>
-    <div class="nav-logo">Eliza Ledwell</div>
-    <ul class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#research">Research</a></li>
-      <li><a href="#education">Education</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
-
-  <!-- ── HERO ─────────────────────────────────────────────────── -->
-  <div class="hero" id="home">
-    <div class="hero-left">
-      <p class="hero-tag">Geospatial AI · Environmental Science · Research Innovation</p>
-      <h1 class="hero-name">Eliza<br><em>Ledwell</em></h1>
-      <p class="hero-subtitle">
-        Pioneering the intersection of geospatial intelligence and artificial intelligence
-        to solve humanity's most pressing environmental challenges — from flood prediction
-        to climate resilience.
-      </p>
-      <div class="hero-cta">
-        <a href="#projects" class="btn-primary">↓ View Projects</a>
-        <a href="mailto:eliza.ledwell@gmail.com" class="btn-outline">Get in Touch</a>
-      </div>
-    </div>
-    <div class="hero-right">
-      <div class="hero-stats">
-        <div class="stat-item">
-          <div class="stat-num">15<span>+</span></div>
-          <div class="stat-label">Years in GIS &amp; Federal Systems</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-num">5<span>M+</span></div>
-          <div class="stat-label">Homeowners reached via NFHL Print Tool</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-num">2<span>.0</span></div>
-          <div class="stat-label">NFIP Risk Rating Engine — Led Modernization</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-num">MS</div>
-          <div class="stat-label">Artificial Intelligence — Johns Hopkins (In Progress)</div>
-        </div>
-      </div>
-      <!-- Decorative topographic lines -->
-      <svg class="hero-map-bg" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <ellipse cx="100" cy="100" rx="90" ry="60" stroke="#0f2240" stroke-width="1.5"/>
-        <ellipse cx="100" cy="100" rx="70" ry="45" stroke="#0f2240" stroke-width="1.5"/>
-        <ellipse cx="100" cy="100" rx="50" ry="30" stroke="#0f2240" stroke-width="1.5"/>
-        <ellipse cx="100" cy="100" rx="30" ry="16" stroke="#0f2240" stroke-width="1.5"/>
-        <ellipse cx="100" cy="100" rx="12" ry="6" stroke="#0f2240" stroke-width="1.5"/>
-      </svg>
-    </div>
-  </div>
-
-  <!-- ── ABOUT ─────────────────────────────────────────────────── -->
-  <section id="about">
-    <div class="container">
-      <div class="about-grid">
-        <div>
-          <p class="section-label">Who I Am</p>
-          <h2 class="section-title">Where Environmental Science Meets Artificial Intelligence</h2>
-          <div class="about-body">
-            <p>
-              I've spent 15 years building systems that sit at the exact spot where <strong>geospatial data, environmental science, and federal policy</strong> converge. My foundation is environmental — a B.S. in Environmental Science with a mathematics minor from UMBC — and my career has been defined by applying that scientific lens to real-world technology challenges that affect communities at scale.
-            </p>
-            <p>
-              My work on <strong>FEMA's flood risk infrastructure</strong> spans every layer: from hand-coding spatial data workflows in Python and JavaScript to leading 100+ person delivery organizations, from prototyping tools that reached millions of homeowners to modernizing the actuarial engines that determine flood insurance premiums nationwide.
-            </p>
-            <p>
-              Now, I'm pursuing a <strong>Master's in Artificial Intelligence at Johns Hopkins</strong>, drawn by a clear research vision: applying machine learning to geospatial and environmental datasets to dramatically improve how we predict, communicate, and respond to flood and climate hazards. I believe AI-augmented geospatial intelligence is one of the highest-leverage opportunities available to environmental science today.
-            </p>
-            <p>
-              I'm seeking roles in <strong>research innovation leadership</strong> — directing programs at the frontier of geospatial AI and environmental modeling, where technical depth and mission impact go hand in hand.
-            </p>
-          </div>
-        </div>
-        <div class="skills-grid">
-          <div class="skill-tag-group">
-            <div class="skill-group-label">Geospatial &amp; Data</div>
-            <div class="skill-tags">
-              <span class="tag tag-teal">GIS / NFHL</span>
-              <span class="tag tag-teal">Python</span>
-              <span class="tag tag-teal">JavaScript</span>
-              <span class="tag tag-teal">Spatial Analysis</span>
-              <span class="tag tag-teal">Remote Sensing</span>
-              <span class="tag tag-teal">LiDAR</span>
-              <span class="tag tag-teal">ArcGIS / QGIS</span>
-            </div>
-          </div>
-          <div class="skill-tag-group">
-            <div class="skill-group-label">AI &amp; Modeling</div>
-            <div class="skill-tags">
-              <span class="tag tag-navy">Machine Learning</span>
-              <span class="tag tag-navy">Flood Prediction Models</span>
-              <span class="tag tag-navy">Probabilistic Risk Modeling</span>
-              <span class="tag tag-navy">Actuarial Data Systems</span>
-            </div>
-          </div>
-          <div class="skill-tag-group">
-            <div class="skill-group-label">Environmental Domains</div>
-            <div class="skill-tags">
-              <span class="tag tag-accent">Flood Risk Analysis</span>
-              <span class="tag tag-accent">NFIP / NFHL</span>
-              <span class="tag tag-accent">Climate Resilience</span>
-              <span class="tag tag-accent">Floodplain Management</span>
-            </div>
-          </div>
-          <div class="skill-tag-group">
-            <div class="skill-group-label">Leadership</div>
-            <div class="skill-tags">
-              <span class="tag tag-navy">Research Program Direction</span>
-              <span class="tag tag-navy">Federal IT Strategy</span>
-              <span class="tag tag-navy">PMP · CSM · COR</span>
-              <span class="tag tag-navy">Agile / Scrum</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── PROJECTS ───────────────────────────────────────────────── -->
-  <section id="projects">
-    <div class="container">
-      <p class="section-label reveal">Signature Work</p>
-      <h2 class="section-title reveal">Projects That Made a Difference</h2>
-      <p class="section-intro reveal">
-        Each of these represents a moment where technical innovation, environmental science, and federal mission aligned — 
-        producing tools and systems that continue to shape how America manages flood risk.
-      </p>
-
-      <div class="projects-list">
-
-        <!-- NFHL Print Tool -->
-        <div class="project-card highlight reveal">
-          <div class="project-year">2012</div>
-          <div class="project-content">
-            <p class="project-org">FEMA · IBM · Risk MAP Program</p>
-            <h3 class="project-title">NFHL Print Tool — Prototyped the Nation's First Address-Based FIRMette Generator</h3>
-            <p class="project-desc">
-              Before this tool existed, accessing your official flood insurance rate map meant contacting FEMA's Map Service Center, 
-              waiting, or navigating cumbersome 36" × 25" paper panels. In 2012, I prototyped the NFHL Print Tool — a GIS web 
-              application that allowed any user to simply type a street address and instantly generate a legally valid FIRMette: 
-              a scaled, printable section of the official Flood Insurance Rate Map (FIRM) formatted for standard office printers.
-            </p>
-            <p class="project-desc">
-              This was a fundamental shift in how flood hazard data reached the public. The tool integrated address geocoding 
-              with the National Flood Hazard Layer (NFHL) database, dynamically clipping and rendering the correct map panel 
-              at regulatory scale, applying FEMA's required accuracy standards, and producing a PDF-ready output on demand.
-              Built using JavaScript for the spatial UI layer and Python for data processing and validation pipelines.
-            </p>
-            <div class="project-impact">
-              <strong>Why it mattered:</strong> FIRMettes are legally accepted for all NFIP purposes — flood insurance underwriting, 
-              mortgage lending, floodplain management decisions, and LOMA applications. Democratizing on-demand digital access to 
-              this data empowered homeowners, insurance agents, lenders, and local planners in ways that paper maps never could. 
-              The capability is now a core feature of FEMA's national geospatial infrastructure, used by millions annually.
-            </div>
-            <div class="project-tags">
-              <span class="project-badge">GIS Web App</span>
-              <span class="project-badge">JavaScript</span>
-              <span class="project-badge">Python</span>
-              <span class="project-badge">NFHL / NFIP</span>
-              <span class="project-badge">Spatial Data Engineering</span>
-              <span class="project-badge">Prototype → Production</span>
-            </div>
-          </div>
-          <div class="project-icon">🗺️</div>
-        </div>
-
-        <!-- Risk Rating Engine 2.0 -->
-        <div class="project-card reveal">
-          <div class="project-year">2021</div>
-          <div class="project-content">
-            <p class="project-org">FEMA · NiyamIT · National Flood Insurance Program</p>
-            <h3 class="project-title">Risk Rating Engine 2.0 — Modernizing the Science Behind Flood Insurance Pricing</h3>
-            <p class="project-desc">
-              FEMA's legacy flood insurance rating system had used a simplistic zone-based model for decades — if your property 
-              was in a flood zone, you paid a fixed rate based on that zone designation, regardless of your actual, individualized 
-              risk. Risk Rating 2.0 replaced that with a sophisticated actuarial pricing engine incorporating multiple 
-              property-level variables: first-floor height, distance to the nearest water feature, foundation type, structure 
-              characteristics, and multiple flood types (riverine, coastal, storm surge, heavy rainfall).
-            </p>
-            <p class="project-desc">
-              As the Business Architect, I led the development and transition effort — coordinating across FEMA's technology, 
-              actuarial, policy, and communications teams. This required deep technical understanding of how spatial data from 
-              the NFHL integrated with actuarial models, as well as extensive stakeholder management with state and local 
-              floodplain managers who depended on the rating system being accurate, explainable, and defensible.
-            </p>
-            <div class="project-impact">
-              <strong>Why it mattered:</strong> Risk Rating 2.0 launched October 2021 and represented the most significant 
-              transformation of NFIP pricing in the program's 50+ year history. It introduced genuine, science-based 
-              individualized risk pricing for approximately 5 million NFIP policyholders — making insurance costs more 
-              equitable and encouraging risk-informed decisions about where and how people build.
-            </div>
-            <div class="project-tags">
-              <span class="project-badge">Actuarial Modeling</span>
-              <span class="project-badge">GIS Integration</span>
-              <span class="project-badge">Flood Risk Science</span>
-              <span class="project-badge">System Modernization</span>
-              <span class="project-badge">NFIP Policy</span>
-              <span class="project-badge">Stakeholder Coordination</span>
-            </div>
-          </div>
-          <div class="project-icon">💧</div>
-        </div>
-
-        <!-- RAM System ATO -->
-        <div class="project-card reveal">
-          <div class="project-year">2018</div>
-          <div class="project-content">
-            <p class="project-org">FEMA · IBM · Risk Analysis & Management</p>
-            <h3 class="project-title">Risk Analysis & Management (RAM) System — Spatial Decision Intelligence for Flood Managers</h3>
-            <p class="project-desc">
-              The Risk MAP Program utilizes the RAM System which is one of FEMA's core spatial decision-support platforms, enabling federal and state flood risk 
-              managers to query, analyze, and visualize the full body of national flood mapping data. Leading the Risk MAP IT delivery 
-              , I managed a 100+ person cross-functional organization through IT modernization initiative and a complete security authorization 
-              process to achieve Authority to Operate (ATO), while simultaneously delivering 20+ system enhancements in a 
-              single year.
-            </p>
-            <p class="project-desc">
-              My technical contributions went beyond program management: I served as the domain translator between FEMA's 
-              engineering scientists, the IT architects, and the policy stakeholders — a role that required 
-              genuine fluency in how spatial flood data is generated, validated, and consumed by decision-makers at every 
-              level of government.
-            </p>
-            <div class="project-impact">
-              <strong>Why it mattered:</strong> RAM is the IT backbone for FEMA's Risk MAP program — the national 
-              effort to produce and maintain scientifically accurate flood maps. Improvements to RAM directly improve the 
-              quality and accessibility of flood risk intelligence for state floodplain managers, engineers, and emergency planners.
-            </div>
-            <div class="project-tags">
-              <span class="project-badge">Spatial Decision Support</span>
-              <span class="project-badge">ATO / Security Authorization</span>
-              <span class="project-badge">Risk MAP</span>
-              <span class="project-badge">Flood Data Analytics</span>
-              <span class="project-badge">Program Delivery</span>
-            </div>
-          </div>
-          <div class="project-icon">🛰️</div>
-        </div>
-
-        <!-- DHS COP -->
-        <div class="project-card reveal">
-          <div class="project-year">2023</div>
-          <div class="project-content">
-            <p class="project-org">DHS · Geospatial Management Office</p>
-            <h3 class="project-title">DHS Common Operating Picture (COP) — Enterprise Geospatial Situational Awareness</h3>
-            <p class="project-desc">
-              As Deputy Program Manager for DHS's Common Operating Picture program, I lead the strategy and delivery of 
-              enterprise geospatial capabilities that enable national situational awareness during disasters, border operations, 
-              and homeland security events. The COP integrates real-time spatial data streams from multiple federal and 
-              partner agencies into a unified operational picture accessible to DHS leadership and field teams.
-            </p>
-            <p class="project-desc">
-              My work spans defining the 10-year technical roadmap, securing Executive Steering Committee approval for 
-              strategic direction, leading federal procurements for GIS services, and managing the contractor ecosystem 
-              delivering geospatial infrastructure across DHS components. I serve as Contracting Officer's Representative 
-              (COR) for the GCIS Contract, applying technical evaluation expertise to vendor selection.
-            </p>
-            <div class="project-impact">
-              <strong>Why it mattered:</strong> The COP is the geospatial nerve center for national incident response. 
-              Improvements to its infrastructure directly improve the speed, accuracy, and interoperability of situational 
-              awareness during major emergencies — including flood events, hurricanes, and other environmental disasters 
-              where geospatial intelligence is operationally decisive.
-            </div>
-            <div class="project-tags">
-              <span class="project-badge">Enterprise GIS</span>
-              <span class="project-badge">National Situational Awareness</span>
-              <span class="project-badge">Federal Procurement</span>
-              <span class="project-badge">DHS / Homeland Security</span>
-              <span class="project-badge">Geospatial Infrastructure</span>
-            </div>
-          </div>
-          <div class="project-icon">🌐</div>
-        </div>
-
-        <!-- Risk MAP Automation -->
-        <div class="project-card reveal">
-          <div class="project-year">2014</div>
-          <div class="project-content">
-            <p class="project-org">FEMA · IBM · Risk MAP</p>
-            <h3 class="project-title">Risk MAP Spatial Workflow Automation — Replacing Manual GIS Processes at Scale</h3>
-            <p class="project-desc">
-              FEMA's Risk MAP program produces and maintains flood hazard maps for communities across the United States. 
-              In the early phase of my IBM career, I identified critical bottlenecks in how spatial data was being 
-              validated, transformed, and delivered — processes that required significant manual GIS analyst effort 
-              for each flood mapping project.
-            </p>
-            <p class="project-desc">
-              I engineered automated spatial data pipelines using Python and JavaScript that replaced these manual workflows — 
-              integrating GIS visualization features, data validation routines, and transformation logic into repeatable, 
-              auditable automated processes. I also collaborated across FEMA and private-sector mapping partners to define 
-              standardized data management practices, producing technical governance manuals that became operational standards 
-              for the program.
-            </p>
-            <div class="project-impact">
-              <strong>Why it mattered:</strong> Automation at this scale meant faster map production cycles, fewer errors, 
-              and significantly reduced costs for the Risk MAP program — ultimately accelerating the delivery of accurate 
-              flood hazard data to communities that use it to make life-safety and land-use decisions.
-            </div>
-            <div class="project-tags">
-              <span class="project-badge">Python Automation</span>
-              <span class="project-badge">JavaScript</span>
-              <span class="project-badge">Spatial Data Engineering</span>
-              <span class="project-badge">Workflow Optimization</span>
-              <span class="project-badge">Data Governance</span>
-            </div>
-          </div>
-          <div class="project-icon">⚙️</div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ── EXPERIENCE TIMELINE ────────────────────────────────────── -->
-  <section id="experience">
-    <div class="container">
-      <p class="section-label reveal">Career Path</p>
-      <h2 class="section-title reveal">15 Years at the Frontier</h2>
-      <p class="section-intro reveal">
-        A progression from hands-on spatial data engineering to directing national-scale geospatial programs 
-        — always with environmental science and mission impact at the center.
-      </p>
-      <div class="timeline">
-
-        <div class="timeline-item reveal">
-          <p class="timeline-dates">SEPT 2022 – PRESENT</p>
-          <h3 class="timeline-role">IT Specialist · COP Deputy Program Manager</h3>
-          <p class="timeline-org">Department of Homeland Security — Geospatial Management Office</p>
-          <div class="timeline-body">
-            <ul>
-              <li>Define and drive the strategic vision for DHS enterprise geospatial infrastructure</li>
-              <li>Lead federal GIS procurements; serve as COR for high-value geospatial contracts</li>
-              <li>Manage 10-year lifecycle cost planning and Executive Steering Committee briefings</li>
-              <li>Oversee multiple contractor teams delivering mission-critical situational awareness capabilities</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="timeline-item reveal">
-          <p class="timeline-dates">MARCH 2020 – SEPT 2022</p>
-          <h3 class="timeline-role">GIS Director</h3>
-          <p class="timeline-org">NiyamIT</p>
-          <div class="timeline-body">
-            <ul>
-              <li>Spearheaded Risk Rating Engine 2.0 — FEMA's most significant NFIP modernization in 50+ years</li>
-              <li>Directed portfolio of FEMA IT programs across budget, staffing, and client engagement</li>
-              <li>Led full contract lifecycle and federal governance compliance (ISSO certification)</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="timeline-item reveal">
-          <p class="timeline-dates">NOV 2016 – MARCH 2020</p>
-          <h3 class="timeline-role">Senior Managing Consultant · Deputy Program Manager</h3>
-          <p class="timeline-org">IBM Global Business Services</p>
-          <div class="timeline-body">
-            <ul>
-              <li>Led 100+ person organization delivering FEMA's RAM flood risk intelligence system</li>
-              <li>Achieved ATO; directed 20+ system enhancements in one year</li>
-              <li>Presented research at ASFPM national conference for five consecutive years</li>
-              <li>Translated complex geospatial and hydrological science for policy and executive audiences</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="timeline-item reveal">
-          <p class="timeline-dates">SEPT 2010 – MARCH 2016</p>
-          <h3 class="timeline-role">Managing Consultant · Deputy Program Manager</h3>
-          <p class="timeline-org">IBM Global Business Services</p>
-          <div class="timeline-body">
-            <ul>
-              <li>Prototyped the NFHL Print Tool (2012) — the first address-based FIRMette generator</li>
-              <li>Engineered spatial data automation pipelines in Python and JavaScript for Risk MAP</li>
-              <li>Led FEMA policy impact assessments and data governance standard-setting</li>
-              <li>Authored system requirements and software documentation for FEMA's core flood risk infrastructure</li>
-            </ul>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ── RESEARCH INTERESTS ─────────────────────────────────────── -->
-  <section id="research">
-    <div class="container">
-      <p class="section-label reveal">Looking Forward</p>
-      <h2 class="section-title reveal">Research Vision</h2>
-      <p class="section-intro reveal">
-        Pursuing a Master's in Artificial Intelligence at Johns Hopkins with a clear research agenda: 
-        applying ML and geospatial AI to the environmental challenges where data-driven insights can 
-        protect lives and improve resilience at scale.
-      </p>
-      <div class="research-grid">
-        <div class="research-card reveal">
-          <div class="research-icon">🌊</div>
-          <h3>AI-Augmented Flood Prediction</h3>
-          <p>Applying deep learning to integrate multi-source hydrological, topographic, and atmospheric data for real-time flood forecasting — moving beyond zone-based static risk to dynamic, address-level prediction models.</p>
-        </div>
-        <div class="research-card reveal">
-          <div class="research-icon">🛸</div>
-          <h3>Geospatial Remote Sensing & ML</h3>
-          <p>Using machine learning applied to LiDAR point clouds, SAR imagery, and multispectral satellite data to improve floodplain delineation accuracy — reducing the manual engineering burden and increasing update frequency.</p>
-        </div>
-        <div class="research-card reveal">
-          <div class="research-icon">🌡️</div>
-          <h3>Climate Risk Probabilistic Modeling</h3>
-          <p>Building probabilistic models that incorporate climate projections into flood risk assessments — enabling communities to plan for 30- and 50-year risk horizons rather than relying solely on historical recurrence intervals.</p>
-        </div>
-        <div class="research-card reveal">
-          <div class="research-icon">🏘️</div>
-          <h3>Community Resilience Intelligence</h3>
-          <p>Combining geospatial AI with socioeconomic and demographic data to identify flood-vulnerable communities that are systematically underserved by current risk communication tools — bridging the data equity gap.</p>
-        </div>
-        <div class="research-card reveal">
-          <div class="research-icon">📡</div>
-          <h3>Real-Time Geospatial Data Pipelines</h3>
-          <p>Designing scalable cloud-native architectures for ingesting and processing real-time sensor, radar, and satellite feeds into operational flood situational awareness platforms like DHS's Common Operating Picture.</p>
-        </div>
-        <div class="research-card reveal">
-          <div class="research-icon">🔬</div>
-          <h3>AI-to-Policy Translation</h3>
-          <p>Developing frameworks for translating AI model outputs into actionable, legally defensible policy inputs — bridging the gap between cutting-edge environmental modeling and federal regulatory systems like NFIP.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── EDUCATION ─────────────────────────────────────────────── -->
-  <section id="education">
-    <div class="container">
-      <p class="section-label reveal">Academic Foundation</p>
-      <h2 class="section-title reveal">Education &amp; Credentials</h2>
-      <div class="edu-grid">
-        <div>
-          <div class="edu-item reveal">
-            <h3 class="edu-degree">Master of Science — Artificial Intelligence</h3>
-            <p class="edu-school">Johns Hopkins University</p>
-            <p class="edu-year">IN PROGRESS · Expected 2028</p>
-            <p class="edu-note">Research focus on machine learning applied to geospatial and environmental datasets, with emphasis on flood prediction systems and climate risk modeling.</p>
-          </div>
-          <div class="edu-item reveal">
-            <h3 class="edu-degree">Bachelor of Science — Environmental Science</h3>
-            <p class="edu-school">University of Maryland, Baltimore County (UMBC)</p>
-            <p class="edu-year">2010 · Minor in Mathematics</p>
-            <p class="edu-note">Scientific foundation in earth systems, hydrology, and quantitative methods — the bedrock for a career translating environmental data into technology solutions.</p>
-          </div>
-          <div class="edu-item reveal">
-            <h3 class="edu-degree">Certificate in Geospatial Information Systems</h3>
-            <p class="edu-school">University of Maryland, Baltimore County (UMBC)</p>
-            <p class="edu-year">2010</p>
-            <p class="edu-note">Specialized GIS training completing alongside the B.S., establishing the technical skills applied across every subsequent role.</p>
-          </div>
-        </div>
-        <div>
-          <p class="section-label reveal" style="margin-bottom:1rem;">Professional Certifications</p>
-          <div class="certs-list">
-            <div class="cert-item reveal">
-              <span class="cert-icon">📋</span>
-              <span><strong>Project Management Professional (PMP)</strong><br>Project Management Institute</span>
-            </div>
-            <div class="cert-item reveal">
-              <span class="cert-icon">🔄</span>
-              <span><strong>Certified Scrum Master (CSM)</strong><br>Scrum Alliance</span>
-            </div>
-            <div class="cert-item reveal">
-              <span class="cert-icon">⚡</span>
-              <span><strong>IBM Lean Six Sigma Black Belt Training</strong><br>IBM</span>
-            </div>
-            <div class="cert-item reveal">
-              <span class="cert-icon">🏛️</span>
-              <span><strong>DHS FAC P/PM Level 3 (Senior)</strong><br>Department of Homeland Security</span>
-            </div>
-            <div class="cert-item reveal">
-              <span class="cert-icon">📝</span>
-              <span><strong>DHS FAC-COR Level 2</strong><br>Department of Homeland Security</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── CONTACT ────────────────────────────────────────────────── -->
-  <section id="contact">
-    <div class="container">
-      <p class="section-label">Let's Connect</p>
-      <h2 class="section-title">Open to Research &amp; Innovation Roles</h2>
-      <p>
-        I'm actively seeking leadership positions at the intersection of geospatial AI and environmental modeling —<br>
-        research director, program lead, or senior technical advisor roles where I can drive meaningful scientific impact.
-      </p>
-      <div class="contact-links">
-        <a href="mailto:eliza.ledwell@gmail.com" class="contact-link contact-link-dark">
-          ✉ eliza.ledwell@gmail.com
-        </a>
-        <a href="tel:4435648375" class="contact-link">
-          📞 443.564.8375
-        </a>
-        <a href="https://www.linkedin.com/in/eliza-ledwell/" target="_blank" class="contact-link">
-          🔗 LinkedIn
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    <p>© 2026 Eliza Ledwell · PMP · Geospatial AI & Environmental Research</p>
-  </footer>
-
-  <script>
-    // Scroll reveal
-    const reveals = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry, i) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => entry.target.classList.add('visible'), i * 60);
-          observer.unobserve(entry.target);
+      @media (max-width: 900px) {
+        .nav-hamburger {
+          display: flex;
         }
-      });
-    }, { threshold: 0.1 });
-    reveals.forEach(el => observer.observe(el));
+        .nav-links {
+          position: fixed;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          width: 260px;
+          height: 100vh;
+          flex-direction: column;
+          gap: 0;
+          background: var(--paper);
+          z-index: 99;
+          padding: 5rem 2.5rem 2.5rem;
+          transform: translateX(100%);
+          transition: transform 0.3s ease;
+          box-shadow: -4px 0 24px rgba(0, 0, 0, 0.15);
+        }
+        .nav-links.open {
+          transform: translateX(0);
+        }
+        .nav-links li {
+          border-bottom: 1px solid rgba(15, 34, 64, 0.06);
+        }
+        .nav-links a {
+          display: block;
+          padding: 1rem 0;
+          font-size: 0.9rem;
+        }
+      }
 
-    // Nav active state
-    const sections = document.querySelectorAll('section[id], div[id]');
-    const navLinks = document.querySelectorAll('.nav-links a');
-    window.addEventListener('scroll', () => {
-      let current = '';
-      sections.forEach(s => {
-        if (window.scrollY >= s.offsetTop - 120) current = s.id;
+      /* ── HERO ─────────────────────────────────────────────── */
+      .hero {
+        min-height: 100vh;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        position: relative;
+        overflow: hidden;
+      }
+      .hero-left {
+        background: var(--navy);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 8rem 5rem 5rem 5rem;
+        position: relative;
+      }
+      .hero-left::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: -80px;
+        bottom: 0;
+        width: 160px;
+        background: var(--navy);
+        clip-path: polygon(0 0, 40% 0, 100% 100%, 0 100%);
+        z-index: 2;
+      }
+      .hero-tag {
+        font-family: "DM Mono", monospace;
+        font-size: 0.72rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--aqua);
+        margin-bottom: 1.5rem;
+        opacity: 0;
+        animation: fadeUp 0.8s 0.2s forwards;
+      }
+      .hero-name {
+        font-family: "DM Serif Display", serif;
+        font-size: clamp(3rem, 5vw, 4.5rem);
+        line-height: 1.05;
+        color: #fff;
+        margin-bottom: 1.2rem;
+        opacity: 0;
+        animation: fadeUp 0.8s 0.4s forwards;
+      }
+      .hero-name em {
+        font-style: italic;
+        color: var(--aqua);
+      }
+      .hero-subtitle {
+        font-size: 1rem;
+        line-height: 1.7;
+        color: rgba(255, 255, 255, 0.65);
+        max-width: 420px;
+        margin-bottom: 2.5rem;
+        opacity: 0;
+        animation: fadeUp 0.8s 0.6s forwards;
+      }
+      .hero-cta {
+        display: flex;
+        gap: 1rem;
+        opacity: 0;
+        animation: fadeUp 0.8s 0.8s forwards;
+      }
+      .btn-primary {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.8rem;
+        background: var(--aqua);
+        color: var(--navy);
+        font-weight: 600;
+        font-size: 0.85rem;
+        text-decoration: none;
+        letter-spacing: 0.04em;
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+      }
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(62, 201, 176, 0.35);
+      }
+      .btn-outline {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.8rem;
+        border: 1.5px solid rgba(255, 255, 255, 0.3);
+        color: rgba(255, 255, 255, 0.8);
+        font-weight: 500;
+        font-size: 0.85rem;
+        text-decoration: none;
+        letter-spacing: 0.04em;
+        transition:
+          border-color 0.2s,
+          color 0.2s;
+      }
+      .btn-outline:hover {
+        border-color: var(--aqua);
+        color: var(--aqua);
+      }
+
+      .hero-right {
+        background: var(--sand);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 8rem 4rem 5rem 7rem;
+        position: relative;
+      }
+      .hero-stats {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        opacity: 0;
+        animation: fadeUp 0.8s 1s forwards;
+      }
+      .stat-item {
+        padding: 1.5rem;
+        background: white;
+        border-left: 3px solid var(--teal);
+        box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+      }
+      .stat-num {
+        font-family: "DM Serif Display", serif;
+        font-size: 2.6rem;
+        color: var(--navy);
+        line-height: 1;
+        margin-bottom: 0.4rem;
+      }
+      .stat-num span {
+        color: var(--teal);
+      }
+      .stat-label {
+        font-size: 0.78rem;
+        font-weight: 500;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .hero-map-bg {
+        position: absolute;
+        bottom: 2rem;
+        right: 2rem;
+        width: 200px;
+        height: 200px;
+        opacity: 0.07;
+      }
+
+      /* Grid lines decoration */
+      .hero-left::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(62, 201, 176, 0.04) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(62, 201, 176, 0.04) 1px, transparent 1px);
+        background-size: 40px 40px;
+        pointer-events: none;
+      }
+
+      /* ── SECTION COMMON ────────────────────────────────────── */
+      section {
+        padding: 6rem 0;
+      }
+      .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 3rem;
+      }
+      .section-label {
+        font-family: "DM Mono", monospace;
+        font-size: 0.7rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--teal);
+        margin-bottom: 0.8rem;
+      }
+      .section-title {
+        font-family: "DM Serif Display", serif;
+        font-size: clamp(2rem, 3.5vw, 2.8rem);
+        color: var(--navy);
+        line-height: 1.15;
+        margin-bottom: 1rem;
+      }
+      .section-intro {
+        font-size: 1rem;
+        line-height: 1.8;
+        color: var(--muted);
+        max-width: 640px;
+        margin-bottom: 3.5rem;
+      }
+
+      /* ── ABOUT ─────────────────────────────────────────────── */
+      #about {
+        background: white;
+      }
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        gap: 5rem;
+        align-items: start;
+      }
+      .about-body {
+        font-size: 1.05rem;
+        line-height: 1.85;
+        color: #3a3a4a;
+      }
+      .about-body p + p {
+        margin-top: 1.2rem;
+      }
+      .about-body strong {
+        color: var(--navy);
+        font-weight: 600;
+      }
+      .skills-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .skill-tag-group {
+      }
+      .skill-group-label {
+        font-family: "DM Mono", monospace;
+        font-size: 0.68rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 0.5rem;
+      }
+      .skill-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+      }
+      .tag {
+        display: inline-block;
+        padding: 0.3rem 0.75rem;
+        font-size: 0.78rem;
+        font-weight: 500;
+        border: 1px solid;
+        letter-spacing: 0.02em;
+      }
+      .tag-teal {
+        border-color: var(--teal2);
+        color: var(--teal);
+        background: rgba(18, 137, 122, 0.05);
+      }
+      .tag-navy {
+        border-color: var(--navy2);
+        color: var(--navy2);
+        background: rgba(27, 58, 107, 0.05);
+      }
+      .tag-accent {
+        border-color: var(--accent);
+        color: var(--accent);
+        background: rgba(232, 115, 74, 0.05);
+      }
+
+      /* ── PROJECTS ──────────────────────────────────────────── */
+      #projects {
+        background: var(--paper);
+      }
+      .projects-list {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+      }
+      .project-card {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0;
+        align-items: start;
+        background: white;
+        padding: 2.5rem;
+        border: 1px solid rgba(0, 0, 0, 0.07);
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.04);
+        transition:
+          transform 0.25s,
+          box-shadow 0.25s;
+        position: relative;
+        overflow: hidden;
+      }
+      .project-card::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 4px;
+        background: var(--teal);
+      }
+      .project-card.highlight::before {
+        background: var(--accent);
+      }
+      .project-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+      }
+      .project-year {
+        font-family: "DM Serif Display", serif;
+        font-size: 2.2rem;
+        color: var(--navy);
+        opacity: 0.15;
+        line-height: 1;
+        padding-top: 0.25rem;
+      }
+      .project-content {
+      }
+      .project-org {
+        font-family: "DM Mono", monospace;
+        font-size: 0.68rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--teal);
+        margin-bottom: 0.4rem;
+      }
+      .project-card.highlight .project-org {
+        color: var(--accent);
+      }
+      .project-title {
+        font-family: "DM Serif Display", serif;
+        font-size: 1.4rem;
+        color: var(--navy);
+        margin-bottom: 0.8rem;
+        line-height: 1.2;
+      }
+      .project-desc {
+        font-size: 0.93rem;
+        line-height: 1.8;
+        color: var(--muted);
+        margin-bottom: 1rem;
+      }
+      .project-impact {
+        background: var(--sand);
+        border-left: 3px solid var(--gold);
+        padding: 0.8rem 1rem;
+        font-size: 0.85rem;
+        line-height: 1.6;
+        color: #4a3e20;
+        margin-bottom: 1rem;
+      }
+      .project-impact strong {
+        color: #6b520a;
+      }
+      .project-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.35rem;
+      }
+      .project-badge {
+        padding: 0.2rem 0.6rem;
+        font-size: 0.72rem;
+        font-weight: 500;
+        letter-spacing: 0.05em;
+        background: var(--warm);
+        color: var(--navy);
+        border-radius: 2px;
+      }
+      .project-icon {
+        width: 48px;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--sand);
+        flex-shrink: 0;
+      }
+      .project-icon svg {
+        width: 26px;
+        height: 26px;
+        stroke: var(--teal);
+        fill: none;
+        stroke-width: 1.5;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      /* ── TIMELINE ──────────────────────────────────────────── */
+      #experience {
+        background: var(--navy);
+      }
+      #experience .section-label {
+        color: var(--aqua);
+      }
+      #experience .section-title {
+        color: white;
+      }
+      #experience .section-intro {
+        color: rgba(255, 255, 255, 0.5);
+      }
+      .timeline {
+        position: relative;
+        padding-left: 2.5rem;
+      }
+      .timeline::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 1px;
+        background: linear-gradient(
+          to bottom,
+          var(--aqua),
+          rgba(62, 201, 176, 0.1)
+        );
+      }
+      .timeline-item {
+        position: relative;
+        padding: 0 0 3rem 2rem;
+      }
+      .timeline-item::before {
+        content: "";
+        position: absolute;
+        left: -0.35rem;
+        top: 0.4rem;
+        width: 10px;
+        height: 10px;
+        background: var(--aqua);
+        border: 2px solid var(--navy);
+        border-radius: 50%;
+      }
+      .timeline-dates {
+        font-family: "DM Mono", monospace;
+        font-size: 0.7rem;
+        letter-spacing: 0.12em;
+        color: var(--aqua);
+        margin-bottom: 0.3rem;
+      }
+      .timeline-role {
+        font-family: "DM Serif Display", serif;
+        font-size: 1.25rem;
+        color: white;
+        margin-bottom: 0.2rem;
+      }
+      .timeline-org {
+        font-size: 0.85rem;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.45);
+        margin-bottom: 0.8rem;
+      }
+      .timeline-body {
+        font-size: 0.9rem;
+        line-height: 1.75;
+        color: rgba(255, 255, 255, 0.6);
+      }
+      .timeline-body ul {
+        list-style: none;
+        padding: 0;
+        margin-top: 0.5rem;
+      }
+      .timeline-body ul li {
+        padding-left: 1rem;
+        position: relative;
+        margin-bottom: 0.4rem;
+      }
+      .timeline-body ul li::before {
+        content: "→";
+        position: absolute;
+        left: 0;
+        color: var(--aqua);
+        font-size: 0.75rem;
+      }
+
+      /* ── RESEARCH ──────────────────────────────────────────── */
+      #research {
+        background: var(--sand);
+      }
+      .research-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+      }
+      .research-card {
+        background: white;
+        padding: 2rem;
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        transition: box-shadow 0.2s;
+      }
+      .research-card:hover {
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+      }
+      .research-icon {
+        width: 40px;
+        height: 40px;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .research-icon svg {
+        width: 36px;
+        height: 36px;
+        stroke: var(--teal);
+        fill: none;
+        stroke-width: 1.5;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      .research-card h3 {
+        font-family: "DM Serif Display", serif;
+        font-size: 1.1rem;
+        color: var(--navy);
+        margin-bottom: 0.6rem;
+        line-height: 1.25;
+      }
+      .research-card p {
+        font-size: 0.88rem;
+        line-height: 1.7;
+        color: var(--muted);
+      }
+
+      /* ── EDUCATION & CERTS ─────────────────────────────────── */
+      #education {
+        background: white;
+      }
+      .edu-grid {
+        display: grid;
+        grid-template-columns: 1.3fr 1fr;
+        gap: 4rem;
+      }
+      .edu-item {
+        border-left: 3px solid var(--teal);
+        padding-left: 1.5rem;
+        margin-bottom: 2rem;
+      }
+      .edu-degree {
+        font-family: "DM Serif Display", serif;
+        font-size: 1.2rem;
+        color: var(--navy);
+        margin-bottom: 0.3rem;
+      }
+      .edu-school {
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: var(--teal);
+        margin-bottom: 0.25rem;
+      }
+      .edu-year {
+        font-family: "DM Mono", monospace;
+        font-size: 0.72rem;
+        letter-spacing: 0.1em;
+        color: var(--muted);
+        margin-bottom: 0.5rem;
+      }
+      .edu-note {
+        font-size: 0.85rem;
+        line-height: 1.6;
+        color: var(--muted);
+      }
+      .certs-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+      .cert-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+        padding: 0.9rem 1rem;
+        background: var(--sand);
+        font-size: 0.85rem;
+        color: var(--ink);
+      }
+      .cert-icon {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+        margin-top: 0.1rem;
+      }
+      .cert-icon svg {
+        width: 20px;
+        height: 20px;
+        stroke: var(--teal);
+        fill: none;
+        stroke-width: 1.5;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      /* ── CONTACT ───────────────────────────────────────────── */
+      #contact {
+        background: var(--teal);
+        text-align: center;
+        padding: 5rem 0;
+      }
+      #contact .section-label {
+        color: rgba(255, 255, 255, 0.6);
+      }
+      #contact .section-title {
+        color: white;
+        margin-bottom: 1rem;
+      }
+      #contact p {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 1rem;
+        line-height: 1.7;
+        margin-bottom: 2.5rem;
+      }
+      .contact-links {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+      }
+      .contact-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        padding: 0.8rem 2rem;
+        background: rgba(255, 255, 255, 0.15);
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 0.9rem;
+        letter-spacing: 0.04em;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        transition:
+          background 0.2s,
+          border-color 0.2s;
+      }
+      .contact-link:hover {
+        background: rgba(255, 255, 255, 0.25);
+        border-color: white;
+      }
+      .contact-link-dark {
+        background: var(--navy);
+        border-color: var(--navy);
+      }
+      .contact-link-dark:hover {
+        background: var(--navy2);
+      }
+
+      /* ── FOOTER ────────────────────────────────────────────── */
+      footer {
+        background: var(--ink);
+        text-align: center;
+        padding: 2rem;
+        font-family: "DM Mono", monospace;
+        font-size: 0.72rem;
+        letter-spacing: 0.1em;
+        color: rgba(255, 255, 255, 0.3);
+      }
+
+      /* ── ANIMATIONS ────────────────────────────────────────── */
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(24px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition:
+          opacity 0.7s,
+          transform 0.7s;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* ── TOPOGRAPHY SVG DECO ───────────────────────────────── */
+      .topo-bg {
+        position: absolute;
+        inset: 0;
+        opacity: 0.04;
+        pointer-events: none;
+        overflow: hidden;
+      }
+
+      /* ── RESPONSIVE ────────────────────────────────────────── */
+      @media (max-width: 900px) {
+        .hero {
+          grid-template-columns: 1fr;
+        }
+        .hero-left::after {
+          display: none;
+        }
+        .hero-right {
+          padding: 3rem 2rem;
+        }
+        .hero-left {
+          padding: 6rem 2rem 3rem;
+        }
+        .about-grid {
+          grid-template-columns: 1fr;
+          gap: 2.5rem;
+        }
+        .research-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .edu-grid {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+        .project-card {
+          grid-template-columns: 1fr;
+        }
+        nav {
+          padding: 1rem 1.5rem;
+        }
+        .container {
+          padding: 0 1.5rem;
+        }
+      }
+      @media (max-width: 600px) {
+        .research-grid {
+          grid-template-columns: 1fr;
+        }
+        .hero-stats {
+          grid-template-columns: 1fr 1fr;
+          gap: 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ── NAV ──────────────────────────────────────────────────── -->
+    <nav>
+      <div class="nav-logo">Eliza Ledwell</div>
+      <button
+        class="nav-hamburger"
+        id="navHamburger"
+        aria-label="Toggle menu"
+        aria-expanded="false"
+      >
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-mobile-overlay" id="navOverlay"></div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#research">Research</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <!-- ── HERO ─────────────────────────────────────────────────── -->
+    <div class="hero" id="home">
+      <div class="hero-left">
+        <p class="hero-tag">
+          Geospatial AI · Environmental Science · Research Innovation
+        </p>
+        <h1 class="hero-name">Eliza<br /><em>Ledwell</em></h1>
+        <p class="hero-subtitle">
+          Pioneering the intersection of geospatial intelligence and artificial
+          intelligence to solve humanity's most pressing environmental
+          challenges — from flood prediction to climate resilience.
+        </p>
+        <div class="hero-cta">
+          <a href="#projects" class="btn-primary">↓ View Projects</a>
+          <a href="mailto:eliza.ledwell@gmail.com" class="btn-outline"
+            >Get in Touch</a
+          >
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="hero-stats">
+          <div class="stat-item">
+            <div class="stat-num">15<span>+</span></div>
+            <div class="stat-label">Years in GIS &amp; Federal Systems</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">5<span>M+</span></div>
+            <div class="stat-label">Homeowners reached via NFHL Print Tool</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">2<span>.0</span></div>
+            <div class="stat-label">
+              NFIP Risk Rating Engine — Led Modernization
+            </div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">MS</div>
+            <div class="stat-label">
+              Artificial Intelligence — Johns Hopkins (In Progress)
+            </div>
+          </div>
+        </div>
+        <!-- Decorative topographic lines -->
+        <svg
+          class="hero-map-bg"
+          viewBox="0 0 200 200"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <ellipse
+            cx="100"
+            cy="100"
+            rx="90"
+            ry="60"
+            stroke="#0f2240"
+            stroke-width="1.5"
+          />
+          <ellipse
+            cx="100"
+            cy="100"
+            rx="70"
+            ry="45"
+            stroke="#0f2240"
+            stroke-width="1.5"
+          />
+          <ellipse
+            cx="100"
+            cy="100"
+            rx="50"
+            ry="30"
+            stroke="#0f2240"
+            stroke-width="1.5"
+          />
+          <ellipse
+            cx="100"
+            cy="100"
+            rx="30"
+            ry="16"
+            stroke="#0f2240"
+            stroke-width="1.5"
+          />
+          <ellipse
+            cx="100"
+            cy="100"
+            rx="12"
+            ry="6"
+            stroke="#0f2240"
+            stroke-width="1.5"
+          />
+        </svg>
+      </div>
+    </div>
+
+    <!-- ── ABOUT ─────────────────────────────────────────────────── -->
+    <section id="about">
+      <div class="container">
+        <div class="about-grid">
+          <div>
+            <p class="section-label">Who I Am</p>
+            <h2 class="section-title">
+              Where Environmental Science Meets Artificial Intelligence
+            </h2>
+            <div class="about-body">
+              <p>
+                I've spent 15 years building systems that sit at the exact spot
+                where
+                <strong
+                  >geospatial data, environmental science, and federal
+                  policy</strong
+                >
+                converge. My foundation is environmental — a B.S. in
+                Environmental Science with a mathematics minor from UMBC — and
+                my career has been defined by applying that scientific lens to
+                real-world technology challenges that affect communities at
+                scale.
+              </p>
+              <p>
+                My work on
+                <strong>FEMA's flood risk infrastructure</strong> spans every
+                layer: from hand-coding spatial data workflows in Python and
+                JavaScript to leading 100+ person delivery organizations, from
+                prototyping tools that reached millions of homeowners to
+                modernizing the actuarial engines that determine flood insurance
+                premiums nationwide.
+              </p>
+              <p>
+                Now, I'm pursuing a
+                <strong
+                  >Master's in Artificial Intelligence at Johns Hopkins</strong
+                >, drawn by a clear research vision: applying machine learning
+                to geospatial and environmental datasets to dramatically improve
+                how we predict, communicate, and respond to flood and climate
+                hazards. I believe AI-augmented geospatial intelligence is one
+                of the highest-leverage opportunities available to environmental
+                science today.
+              </p>
+              <p>
+                I'm seeking roles in
+                <strong>research innovation leadership</strong> — directing
+                programs at the frontier of geospatial AI and environmental
+                modeling, where technical depth and mission impact go hand in
+                hand.
+              </p>
+            </div>
+          </div>
+          <div class="skills-grid">
+            <div class="skill-tag-group">
+              <div class="skill-group-label">Geospatial &amp; Data</div>
+              <div class="skill-tags">
+                <span class="tag tag-teal">GIS / NFHL</span>
+                <span class="tag tag-teal">Python</span>
+                <span class="tag tag-teal">JavaScript</span>
+                <span class="tag tag-teal">Spatial Analysis</span>
+                <span class="tag tag-teal">Remote Sensing</span>
+                <span class="tag tag-teal">LiDAR</span>
+                <span class="tag tag-teal">ArcGIS / QGIS</span>
+              </div>
+            </div>
+            <div class="skill-tag-group">
+              <div class="skill-group-label">AI &amp; Modeling</div>
+              <div class="skill-tags">
+                <span class="tag tag-navy">Machine Learning</span>
+                <span class="tag tag-navy">Flood Prediction Models</span>
+                <span class="tag tag-navy">Probabilistic Risk Modeling</span>
+                <span class="tag tag-navy">Actuarial Data Systems</span>
+              </div>
+            </div>
+            <div class="skill-tag-group">
+              <div class="skill-group-label">Environmental Domains</div>
+              <div class="skill-tags">
+                <span class="tag tag-accent">Flood Risk Analysis</span>
+                <span class="tag tag-accent">NFIP / NFHL</span>
+                <span class="tag tag-accent">Climate Resilience</span>
+                <span class="tag tag-accent">Floodplain Management</span>
+              </div>
+            </div>
+            <div class="skill-tag-group">
+              <div class="skill-group-label">Leadership</div>
+              <div class="skill-tags">
+                <span class="tag tag-navy">Research Program Direction</span>
+                <span class="tag tag-navy">Federal IT Strategy</span>
+                <span class="tag tag-navy">PMP · CSM · COR</span>
+                <span class="tag tag-navy">Agile / Scrum</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── PROJECTS ───────────────────────────────────────────────── -->
+    <section id="projects">
+      <div class="container">
+        <p class="section-label reveal">Signature Work</p>
+        <h2 class="section-title reveal">Projects That Made a Difference</h2>
+        <p class="section-intro reveal">
+          Each of these represents a moment where technical innovation,
+          environmental science, and federal mission aligned — producing tools
+          and systems that continue to shape how America manages flood risk.
+        </p>
+
+        <div class="projects-list">
+          <!-- NFHL Print Tool -->
+          <div class="project-card highlight reveal">
+            <div class="project-content">
+              <p class="project-org">FEMA · IBM · Risk MAP Program</p>
+              <h3 class="project-title">
+                NFHL Print Tool — Prototyped the Nation's First Address-Based
+                FIRMette Generator
+              </h3>
+              <p class="project-desc">
+                Before this tool existed, accessing your official flood
+                insurance rate map meant contacting FEMA's Map Service Center,
+                waiting, or navigating cumbersome 36" × 25" paper panels. In
+                2012, I prototyped the NFHL Print Tool — a GIS web application
+                that allowed any user to simply type a street address and
+                instantly generate a legally valid FIRMette: a scaled, printable
+                section of the official Flood Insurance Rate Map (FIRM)
+                formatted for standard office printers.
+              </p>
+              <p class="project-desc">
+                This was a fundamental shift in how flood hazard data reached
+                the public. The tool integrated address geocoding with the
+                National Flood Hazard Layer (NFHL) database, dynamically
+                clipping and rendering the correct map panel at regulatory
+                scale, applying FEMA's required accuracy standards, and
+                producing a PDF-ready output on demand. Built using JavaScript
+                for the spatial UI layer and Python for data processing and
+                validation pipelines.
+              </p>
+              <div class="project-impact">
+                <strong>Why it mattered:</strong> FIRMettes are legally accepted
+                for all NFIP purposes — flood insurance underwriting, mortgage
+                lending, floodplain management decisions, and LOMA applications.
+                Democratizing on-demand digital access to this data empowered
+                homeowners, insurance agents, lenders, and local planners in
+                ways that paper maps never could. The capability is now a core
+                feature of FEMA's national geospatial infrastructure, used by
+                millions annually.
+              </div>
+              <div class="project-tags">
+                <span class="project-badge">GIS Web App</span>
+                <span class="project-badge">JavaScript</span>
+                <span class="project-badge">Python</span>
+                <span class="project-badge">NFHL / NFIP</span>
+                <span class="project-badge">Spatial Data Engineering</span>
+                <span class="project-badge">Prototype → Production</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Risk Rating Engine 2.0 -->
+          <div class="project-card reveal">
+            <div class="project-content">
+              <p class="project-org">
+                FEMA · NiyamIT · National Flood Insurance Program
+              </p>
+              <h3 class="project-title">
+                Risk Rating Engine 2.0 — Modernizing the Science Behind Flood
+                Insurance Pricing
+              </h3>
+              <p class="project-desc">
+                FEMA's legacy flood insurance rating system had used a
+                simplistic zone-based model for decades — if your property was
+                in a flood zone, you paid a fixed rate based on that zone
+                designation, regardless of your actual, individualized risk.
+                Risk Rating 2.0 replaced that with a sophisticated actuarial
+                pricing engine incorporating multiple property-level variables:
+                first-floor height, distance to the nearest water feature,
+                foundation type, structure characteristics, and multiple flood
+                types (riverine, coastal, storm surge, heavy rainfall).
+              </p>
+              <p class="project-desc">
+                As the Business Architect, I led the development and transition
+                effort — coordinating across FEMA's technology, actuarial,
+                policy, and communications teams. This required deep technical
+                understanding of how spatial data from the NFHL integrated with
+                actuarial models, as well as extensive stakeholder management
+                with state and local floodplain managers who depended on the
+                rating system being accurate, explainable, and defensible.
+              </p>
+              <div class="project-impact">
+                <strong>Why it mattered:</strong> Risk Rating 2.0 launched
+                October 2021 and represented the most significant transformation
+                of NFIP pricing in the program's 50+ year history. It introduced
+                genuine, science-based individualized risk pricing for
+                approximately 5 million NFIP policyholders — making insurance
+                costs more equitable and encouraging risk-informed decisions
+                about where and how people build.
+              </div>
+              <div class="project-tags">
+                <span class="project-badge">Actuarial Modeling</span>
+                <span class="project-badge">GIS Integration</span>
+                <span class="project-badge">Flood Risk Science</span>
+                <span class="project-badge">System Modernization</span>
+                <span class="project-badge">NFIP Policy</span>
+                <span class="project-badge">Stakeholder Coordination</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- RAM System ATO -->
+          <div class="project-card reveal">
+            <div class="project-content">
+              <p class="project-org">FEMA · IBM · Risk Analysis & Management</p>
+              <h3 class="project-title">
+                Risk Analysis & Management (RAM) System — Spatial Decision
+                Intelligence for Flood Managers
+              </h3>
+              <p class="project-desc">
+                The Risk MAP Program utilizes the RAM System which is one of
+                FEMA's core spatial decision-support platforms, enabling federal
+                and state flood risk managers to query, analyze, and visualize
+                the full body of national flood mapping data. Leading the Risk
+                MAP IT delivery , I managed a 100+ person cross-functional
+                organization through IT modernization initiative and a complete
+                security authorization process to achieve Authority to Operate
+                (ATO), while simultaneously delivering 20+ system enhancements
+                in a single year.
+              </p>
+              <p class="project-desc">
+                My technical contributions went beyond program management: I
+                served as the domain translator between FEMA's engineering
+                scientists, the IT architects, and the policy stakeholders — a
+                role that required genuine fluency in how spatial flood data is
+                generated, validated, and consumed by decision-makers at every
+                level of government.
+              </p>
+              <div class="project-impact">
+                <strong>Why it mattered:</strong> RAM is the IT backbone for
+                FEMA's Risk MAP program — the national effort to produce and
+                maintain scientifically accurate flood maps. Improvements to RAM
+                directly improve the quality and accessibility of flood risk
+                intelligence for state floodplain managers, engineers, and
+                emergency planners.
+              </div>
+              <div class="project-tags">
+                <span class="project-badge">Spatial Decision Support</span>
+                <span class="project-badge">ATO / Security Authorization</span>
+                <span class="project-badge">Risk MAP</span>
+                <span class="project-badge">Flood Data Analytics</span>
+                <span class="project-badge">Program Delivery</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- DHS COP -->
+          <div class="project-card reveal">
+            <div class="project-content">
+              <p class="project-org">DHS · Geospatial Management Office</p>
+              <h3 class="project-title">
+                DHS Common Operating Picture (COP) — Enterprise Geospatial
+                Situational Awareness
+              </h3>
+              <p class="project-desc">
+                As Deputy Program Manager for DHS's Common Operating Picture
+                program, I lead the strategy and delivery of enterprise
+                geospatial capabilities that enable national situational
+                awareness during disasters, border operations, and homeland
+                security events. The COP integrates real-time spatial data
+                streams from multiple federal and partner agencies into a
+                unified operational picture accessible to DHS leadership and
+                field teams.
+              </p>
+              <p class="project-desc">
+                My work spans defining the 10-year technical roadmap, securing
+                Executive Steering Committee approval for strategic direction,
+                leading federal procurements for GIS services, and managing the
+                contractor ecosystem delivering geospatial infrastructure across
+                DHS components. I serve as Contracting Officer's Representative
+                (COR) for the GCIS Contract, applying technical evaluation
+                expertise to vendor selection.
+              </p>
+              <div class="project-impact">
+                <strong>Why it mattered:</strong> The COP is the geospatial
+                nerve center for national incident response. Improvements to its
+                infrastructure directly improve the speed, accuracy, and
+                interoperability of situational awareness during major
+                emergencies — including flood events, hurricanes, and other
+                environmental disasters where geospatial intelligence is
+                operationally decisive.
+              </div>
+              <div class="project-tags">
+                <span class="project-badge">Enterprise GIS</span>
+                <span class="project-badge"
+                  >National Situational Awareness</span
+                >
+                <span class="project-badge">Federal Procurement</span>
+                <span class="project-badge">DHS / Homeland Security</span>
+                <span class="project-badge">Geospatial Infrastructure</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Risk MAP Automation -->
+          <div class="project-card reveal">
+            <div class="project-content">
+              <p class="project-org">FEMA · IBM · Risk MAP</p>
+              <h3 class="project-title">
+                Risk MAP Spatial Workflow Automation — Replacing Manual GIS
+                Processes at Scale
+              </h3>
+              <p class="project-desc">
+                FEMA's Risk MAP program produces and maintains flood hazard maps
+                for communities across the United States. In the early phase of
+                my IBM career, I identified critical bottlenecks in how spatial
+                data was being validated, transformed, and delivered — processes
+                that required significant manual GIS analyst effort for each
+                flood mapping project.
+              </p>
+              <p class="project-desc">
+                I engineered automated spatial data pipelines using Python and
+                JavaScript that replaced these manual workflows — integrating
+                GIS visualization features, data validation routines, and
+                transformation logic into repeatable, auditable automated
+                processes. I also collaborated across FEMA and private-sector
+                mapping partners to define standardized data management
+                practices, producing technical governance manuals that became
+                operational standards for the program.
+              </p>
+              <div class="project-impact">
+                <strong>Why it mattered:</strong> Automation at this scale meant
+                faster map production cycles, fewer errors, and significantly
+                reduced costs for the Risk MAP program — ultimately accelerating
+                the delivery of accurate flood hazard data to communities that
+                use it to make life-safety and land-use decisions.
+              </div>
+              <div class="project-tags">
+                <span class="project-badge">Python Automation</span>
+                <span class="project-badge">JavaScript</span>
+                <span class="project-badge">Spatial Data Engineering</span>
+                <span class="project-badge">Workflow Optimization</span>
+                <span class="project-badge">Data Governance</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── EXPERIENCE TIMELINE ────────────────────────────────────── -->
+    <section id="experience">
+      <div class="container">
+        <p class="section-label reveal">Career Path</p>
+        <h2 class="section-title reveal">15 Years at the Frontier</h2>
+        <p class="section-intro reveal">
+          A progression from hands-on spatial data engineering to directing
+          national-scale geospatial programs — always with environmental science
+          and mission impact at the center.
+        </p>
+        <div class="timeline">
+          <div class="timeline-item reveal">
+            <p class="timeline-dates">SEPT 2022 – PRESENT</p>
+            <h3 class="timeline-role">
+              IT Specialist · COP Deputy Program Manager
+            </h3>
+            <p class="timeline-org">
+              Department of Homeland Security — Geospatial Management Office
+            </p>
+            <div class="timeline-body">
+              <ul>
+                <li>
+                  Define and drive the strategic vision for DHS enterprise
+                  geospatial infrastructure
+                </li>
+                <li>
+                  Lead federal GIS procurements; serve as COR for high-value
+                  geospatial contracts
+                </li>
+                <li>
+                  Manage 10-year lifecycle cost planning and Executive Steering
+                  Committee briefings
+                </li>
+                <li>
+                  Oversee multiple contractor teams delivering mission-critical
+                  situational awareness capabilities
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="timeline-item reveal">
+            <p class="timeline-dates">MARCH 2020 – SEPT 2022</p>
+            <h3 class="timeline-role">GIS Director</h3>
+            <p class="timeline-org">NiyamIT</p>
+            <div class="timeline-body">
+              <ul>
+                <li>
+                  Spearheaded Risk Rating Engine 2.0 — FEMA's most significant
+                  NFIP modernization in 50+ years
+                </li>
+                <li>
+                  Directed portfolio of FEMA IT programs across budget,
+                  staffing, and client engagement
+                </li>
+                <li>
+                  Led full contract lifecycle and federal governance compliance
+                  (ISSO certification)
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="timeline-item reveal">
+            <p class="timeline-dates">NOV 2016 – MARCH 2020</p>
+            <h3 class="timeline-role">
+              Senior Managing Consultant · Deputy Program Manager
+            </h3>
+            <p class="timeline-org">IBM Global Business Services</p>
+            <div class="timeline-body">
+              <ul>
+                <li>
+                  Led 100+ person organization delivering FEMA's RAM flood risk
+                  intelligence system
+                </li>
+                <li>
+                  Achieved ATO; directed 20+ system enhancements in one year
+                </li>
+                <li>
+                  Presented research at ASFPM national conference for five
+                  consecutive years
+                </li>
+                <li>
+                  Translated complex geospatial and hydrological science for
+                  policy and executive audiences
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="timeline-item reveal">
+            <p class="timeline-dates">SEPT 2010 – MARCH 2016</p>
+            <h3 class="timeline-role">
+              Managing Consultant · Deputy Program Manager
+            </h3>
+            <p class="timeline-org">IBM Global Business Services</p>
+            <div class="timeline-body">
+              <ul>
+                <li>
+                  Prototyped the NFHL Print Tool (2012) — the first
+                  address-based FIRMette generator
+                </li>
+                <li>
+                  Engineered spatial data automation pipelines in Python and
+                  JavaScript for Risk MAP
+                </li>
+                <li>
+                  Led FEMA policy impact assessments and data governance
+                  standard-setting
+                </li>
+                <li>
+                  Authored system requirements and software documentation for
+                  FEMA's core flood risk infrastructure
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── RESEARCH INTERESTS ─────────────────────────────────────── -->
+    <section id="research">
+      <div class="container">
+        <p class="section-label reveal">Looking Forward</p>
+        <h2 class="section-title reveal">Research Vision</h2>
+        <p class="section-intro reveal">
+          Pursuing a Master's in Artificial Intelligence at Johns Hopkins with a
+          clear research agenda: applying ML and geospatial AI to the
+          environmental challenges where data-driven insights can protect lives
+          and improve resilience at scale.
+        </p>
+        <div class="research-grid">
+          <div class="research-card reveal">
+            <div class="research-icon">
+              <svg viewBox="0 0 24 24">
+                <path d="M2 14s1.5-2 5-2 5 4 8 4 5-2 5-2" />
+                <path d="M2 19s1.5-2 5-2 5 4 8 4 5-2 5-2" />
+                <path
+                  d="M12 2C9.5 2 7 4 7 7c0 4 5 8 5 8s5-4 5-8c0-3-2.5-5-5-5z"
+                />
+              </svg>
+            </div>
+            <h3>AI-Augmented Flood Prediction</h3>
+            <p>
+              Applying deep learning to integrate multi-source hydrological,
+              topographic, and atmospheric data for real-time flood forecasting
+              — moving beyond zone-based static risk to dynamic, address-level
+              prediction models.
+            </p>
+          </div>
+          <div class="research-card reveal">
+            <div class="research-icon">
+              <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="3" />
+                <path d="M3 7l4.5 4.5M17 3l-4 4M21 17l-4.5-4.5M7 21l4-4" />
+                <ellipse
+                  cx="12"
+                  cy="12"
+                  rx="10"
+                  ry="4"
+                  transform="rotate(-30 12 12)"
+                />
+              </svg>
+            </div>
+            <h3>Geospatial Remote Sensing & ML</h3>
+            <p>
+              Using machine learning applied to LiDAR point clouds, SAR imagery,
+              and multispectral satellite data to improve floodplain delineation
+              accuracy — reducing the manual engineering burden and increasing
+              update frequency.
+            </p>
+          </div>
+          <div class="research-card reveal">
+            <div class="research-icon">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"
+                />
+              </svg>
+            </div>
+            <h3>Climate Risk Probabilistic Modeling</h3>
+            <p>
+              Building probabilistic models that incorporate climate projections
+              into flood risk assessments — enabling communities to plan for 30-
+              and 50-year risk horizons rather than relying solely on historical
+              recurrence intervals.
+            </p>
+          </div>
+          <div class="research-card reveal">
+            <div class="research-icon">
+              <svg viewBox="0 0 24 24">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                <polyline points="9 22 9 12 15 12 15 22" />
+              </svg>
+            </div>
+            <h3>Community Resilience Intelligence</h3>
+            <p>
+              Combining geospatial AI with socioeconomic and demographic data to
+              identify flood-vulnerable communities that are systematically
+              underserved by current risk communication tools — bridging the
+              data equity gap.
+            </p>
+          </div>
+          <div class="research-card reveal">
+            <div class="research-icon">
+              <svg viewBox="0 0 24 24">
+                <path d="M5 12.55a11 11 0 0 1 14.08 0" />
+                <path d="M1.42 9a16 16 0 0 1 21.16 0" />
+                <path d="M8.53 16.11a6 6 0 0 1 6.95 0" />
+                <circle
+                  cx="12"
+                  cy="20"
+                  r="1"
+                  fill="currentColor"
+                  stroke="none"
+                />
+              </svg>
+            </div>
+            <h3>Real-Time Geospatial Data Pipelines</h3>
+            <p>
+              Designing scalable cloud-native architectures for ingesting and
+              processing real-time sensor, radar, and satellite feeds into
+              operational flood situational awareness platforms like DHS's
+              Common Operating Picture.
+            </p>
+          </div>
+          <div class="research-card reveal">
+            <div class="research-icon">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2v-4M9 21H5a2 2 0 0 1-2-2v-4m0 0h18"
+                />
+              </svg>
+            </div>
+            <h3>AI-to-Policy Translation</h3>
+            <p>
+              Developing frameworks for translating AI model outputs into
+              actionable, legally defensible policy inputs — bridging the gap
+              between cutting-edge environmental modeling and federal regulatory
+              systems like NFIP.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── EDUCATION ─────────────────────────────────────────────── -->
+    <section id="education">
+      <div class="container">
+        <p class="section-label reveal">Academic Foundation</p>
+        <h2 class="section-title reveal">Education &amp; Credentials</h2>
+        <div class="edu-grid">
+          <div>
+            <div class="edu-item reveal">
+              <h3 class="edu-degree">
+                Master of Science — Artificial Intelligence
+              </h3>
+              <p class="edu-school">Johns Hopkins University</p>
+              <p class="edu-year">IN PROGRESS · Expected 2028</p>
+              <p class="edu-note">
+                Research focus on machine learning applied to geospatial and
+                environmental datasets, with emphasis on flood prediction
+                systems and climate risk modeling.
+              </p>
+            </div>
+            <div class="edu-item reveal">
+              <h3 class="edu-degree">
+                Bachelor of Science — Environmental Science
+              </h3>
+              <p class="edu-school">
+                University of Maryland, Baltimore County (UMBC)
+              </p>
+              <p class="edu-year">2010 · Minor in Mathematics</p>
+              <p class="edu-note">
+                Scientific foundation in earth systems, hydrology, and
+                quantitative methods — the bedrock for a career translating
+                environmental data into technology solutions.
+              </p>
+            </div>
+            <div class="edu-item reveal">
+              <h3 class="edu-degree">
+                Certificate in Geospatial Information Systems
+              </h3>
+              <p class="edu-school">
+                University of Maryland, Baltimore County (UMBC)
+              </p>
+              <p class="edu-year">2010</p>
+              <p class="edu-note">
+                Specialized GIS training completing alongside the B.S.,
+                establishing the technical skills applied across every
+                subsequent role.
+              </p>
+            </div>
+          </div>
+          <div>
+            <p class="section-label reveal" style="margin-bottom: 1rem">
+              Professional Certifications
+            </p>
+            <div class="certs-list">
+              <div class="cert-item reveal">
+                <span class="cert-icon"
+                  ><svg viewBox="0 0 24 24">
+                    <rect x="5" y="2" width="14" height="20" rx="2" />
+                    <line x1="9" y1="7" x2="15" y2="7" />
+                    <line x1="9" y1="11" x2="15" y2="11" />
+                    <line x1="9" y1="15" x2="12" y2="15" /></svg
+                ></span>
+                <span
+                  ><strong>Project Management Professional (PMP)</strong
+                  ><br />Project Management Institute</span
+                >
+              </div>
+              <div class="cert-item reveal">
+                <span class="cert-icon"
+                  ><svg viewBox="0 0 24 24">
+                    <polyline points="1 4 1 10 7 10" />
+                    <path d="M3.51 15a9 9 0 1 0 .49-4.95" /></svg
+                ></span>
+                <span
+                  ><strong>Certified Scrum Master (CSM)</strong><br />Scrum
+                  Alliance</span
+                >
+              </div>
+              <div class="cert-item reveal">
+                <span class="cert-icon"
+                  ><svg viewBox="0 0 24 24">
+                    <polygon
+                      points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"
+                    /></svg
+                ></span>
+                <span
+                  ><strong>IBM Lean Six Sigma Black Belt Training</strong
+                  ><br />IBM</span
+                >
+              </div>
+              <div class="cert-item reveal">
+                <span class="cert-icon"
+                  ><svg viewBox="0 0 24 24">
+                    <line x1="3" y1="22" x2="21" y2="22" />
+                    <line x1="6" y1="18" x2="6" y2="11" />
+                    <line x1="10" y1="18" x2="10" y2="11" />
+                    <line x1="14" y1="18" x2="14" y2="11" />
+                    <line x1="18" y1="18" x2="18" y2="11" />
+                    <polygon points="12 2 20 7 4 7" /></svg
+                ></span>
+                <span
+                  ><strong>DHS FAC P/PM Level 3 (Senior)</strong
+                  ><br />Department of Homeland Security</span
+                >
+              </div>
+              <div class="cert-item reveal">
+                <span class="cert-icon"
+                  ><svg viewBox="0 0 24 24">
+                    <path d="M12 20h9" />
+                    <path
+                      d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"
+                    /></svg
+                ></span>
+                <span
+                  ><strong>DHS FAC-COR Level 2</strong><br />Department of
+                  Homeland Security</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CONTACT ────────────────────────────────────────────────── -->
+    <section id="contact">
+      <div class="container">
+        <p class="section-label">Let's Connect</p>
+        <h2 class="section-title">Open to Research &amp; Innovation Roles</h2>
+        <p>
+          I'm actively seeking leadership positions at the intersection of
+          geospatial AI and environmental modeling —<br />
+          research director, program lead, or senior technical advisor roles
+          where I can drive meaningful scientific impact.
+        </p>
+        <div class="contact-links">
+          <a
+            href="mailto:eliza.ledwell@gmail.com"
+            class="contact-link contact-link-dark"
+          >
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <rect x="2" y="4" width="20" height="16" rx="2" />
+              <polyline points="2,4 12,13 22,4" />
+            </svg>
+            eliza.ledwell@gmail.com
+          </a>
+          <span
+            class="contact-link"
+            id="phoneLink"
+            data-p1="443"
+            data-p2="564"
+            data-p3="8375"
+            style="cursor: pointer"
+          >
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.07 12 19.79 19.79 0 0 1 1 3.18 2 2 0 0 1 3 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91A16 16 0 0 0 15 16.91l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 17.92z"
+              />
+            </svg>
+            <span id="phoneTxt">Call us</span>
+          </span>
+          <a
+            href="https://www.linkedin.com/in/eliza-ledwell/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="contact-link"
+          >
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <rect x="2" y="2" width="20" height="20" rx="4" />
+              <line x1="7" y1="10" x2="7" y2="17" />
+              <circle cx="7" cy="7" r="1" fill="currentColor" stroke="none" />
+              <path d="M11 10v7m0-4a3 3 0 0 1 6 0v4" />
+            </svg>
+            LinkedIn
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>© 2026 Eliza Ledwell · PMP · Geospatial AI & Environmental Research</p>
+    </footer>
+
+    <script>
+      // Scroll reveal
+      const reveals = document.querySelectorAll(".reveal");
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry, i) => {
+            if (entry.isIntersecting) {
+              setTimeout(() => entry.target.classList.add("visible"), i * 60);
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.1 },
+      );
+      reveals.forEach((el) => observer.observe(el));
+
+      // Nav active state
+      const sections = document.querySelectorAll("section[id], div[id]");
+      const navLinks = document.querySelectorAll(".nav-links a");
+      window.addEventListener("scroll", () => {
+        let current = "";
+        sections.forEach((s) => {
+          if (window.scrollY >= s.offsetTop - 120) current = s.id;
+        });
+        navLinks.forEach((a) => {
+          a.style.color =
+            a.getAttribute("href") === "#" + current ? "var(--teal)" : "";
+        });
       });
-      navLinks.forEach(a => {
-        a.style.color = a.getAttribute('href') === '#' + current ? 'var(--teal)' : '';
-      });
-    });
-  </script>
-</body>
+
+      // Mobile hamburger menu
+      const hamburger = document.getElementById("navHamburger");
+      const navMenu = document.getElementById("navLinks");
+      const overlay = document.getElementById("navOverlay");
+      function toggleMenu(open) {
+        hamburger.classList.toggle("open", open);
+        navMenu.classList.toggle("open", open);
+        overlay.classList.toggle("open", open);
+        hamburger.setAttribute("aria-expanded", open ? "true" : "false");
+        document.body.style.overflow = open ? "hidden" : "";
+      }
+      hamburger.addEventListener("click", () =>
+        toggleMenu(!navMenu.classList.contains("open")),
+      );
+      overlay.addEventListener("click", () => toggleMenu(false));
+      navMenu
+        .querySelectorAll("a")
+        .forEach((a) => a.addEventListener("click", () => toggleMenu(false)));
+
+      // Phone obfuscation — assembled client-side, invisible to scrapers
+      (function () {
+        var el = document.getElementById("phoneLink");
+        if (!el) return;
+        var p = [el.dataset.p1, el.dataset.p2, el.dataset.p3].join("");
+        var fmt = el.dataset.p1 + "." + el.dataset.p2 + "." + el.dataset.p3;
+        document.getElementById("phoneTxt").textContent = fmt;
+        el.addEventListener("click", function () {
+          window.location.href = "tel:" + p;
+        });
+        el.addEventListener("mouseover", function () {
+          el.title = fmt;
+        });
+      })();
+    </script>
+  </body>
 </html>
