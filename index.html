@@ -291,9 +291,7 @@
         line-height: 1;
         margin-bottom: 0.4rem;
       }
-      .stat-num span {
-        color: var(--teal);
-      }
+
       .stat-label {
         font-size: 0.78rem;
         font-weight: 500;
@@ -538,7 +536,102 @@
         stroke-linecap: round;
         stroke-linejoin: round;
       }
+      /* ── AI / ML PROJECTS ───────────────────────────────────────── */
 
+#ai-projects {
+  background: white;
+}
+
+.ai-projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.ai-project-card {
+  background: var(--paper);
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  padding: 2rem;
+  position: relative;
+  transition:
+    transform 0.25s,
+    box-shadow 0.25s;
+}
+
+.ai-project-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--teal);
+}
+
+.ai-project-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+}
+
+.ai-project-label {
+  font-family: "DM Mono", monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 0.5rem;
+}
+
+.ai-project-title {
+  font-family: "DM Serif Display", serif;
+  font-size: 1.35rem;
+  color: var(--navy);
+  margin-bottom: 0.7rem;
+}
+
+.ai-project-desc {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: var(--muted);
+  margin-bottom: 1rem;
+}
+
+.ai-project-result {
+  font-size: 0.84rem;
+  line-height: 1.6;
+  padding: 0.75rem 0.9rem;
+  background: var(--sand);
+  margin-bottom: 1rem;
+}
+
+.ai-project-result strong {
+  color: var(--navy);
+}
+
+.ai-project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.ai-project-link {
+  display: inline-block;
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--teal);
+  text-decoration: none;
+}
+
+.ai-project-link:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 900px) {
+  .ai-projects-grid {
+    grid-template-columns: 1fr;
+  }
+}
       /* ── TIMELINE ──────────────────────────────────────────── */
       #experience {
         background: var(--navy);
@@ -899,7 +992,8 @@
       <div class="nav-mobile-overlay" id="navOverlay"></div>
       <ul class="nav-links" id="navLinks">
         <li><a href="#about">About</a></li>
-        <li><a href="#projects">Projects</a></li>
+        <li><a href="#projects">GIS Projects</a></li>
+        <li><a href="#ai-projects">AI / ML Projects</a></li>
         <li><a href="#experience">Experience</a></li>
         <li><a href="#research">Research</a></li>
         <li><a href="#education">Education</a></li>
@@ -911,13 +1005,11 @@
     <div class="hero" id="home">
       <div class="hero-left">
         <p class="hero-tag">
-          Geospatial AI · Environmental Science · Research Innovation
+          Geospatial Systems · Artificial Intelligence · Mission Innovation
         </p>
         <h1 class="hero-name">Eliza<br /><em>Ledwell</em></h1>
         <p class="hero-subtitle">
-          Pioneering the intersection of geospatial intelligence and artificial
-          intelligence to solve humanity's most pressing environmental
-          challenges — from flood prediction to climate resilience.
+          Bringing together 15 years of hands-on technical expertise and leadership in geospatial systems with emerging expertise in artificial intelligence to solve complex environmental and national mission challenges through next-generation spatial decision-support systems.
         </p>
         <div class="hero-cta">
           <a href="#projects" class="btn-primary">↓ View Projects</a>
@@ -930,7 +1022,7 @@
         <div class="hero-stats">
           <div class="stat-item">
             <div class="stat-num">15<span>+</span></div>
-            <div class="stat-label">Years in GIS &amp; Federal Systems</div>
+            <div class="stat-label">Years in GIS &amp; Federal IT Systems</div>
           </div>
           <div class="stat-item">
             <div class="stat-num">5<span>M+</span></div>
@@ -1010,47 +1102,62 @@
               Where Environmental Science Meets Artificial Intelligence
             </h2>
             <div class="about-body">
-              <p>
-                I've spent 15 years building systems that sit at the exact spot
-                where
-                <strong
-                  >geospatial data, environmental science, and federal
-                  policy</strong
-                >
-                converge. My foundation is environmental — a B.S. in
-                Environmental Science with a mathematics minor from UMBC — and
-                my career has been defined by applying that scientific lens to
-                real-world technology challenges that affect communities at
-                scale.
-              </p>
-              <p>
-                My work on
-                <strong>FEMA's flood risk infrastructure</strong> spans every
-                layer: from hand-coding spatial data workflows in Python and
-                JavaScript to leading 100+ person delivery organizations, from
-                prototyping tools that reached millions of homeowners to
-                modernizing the actuarial engines that determine flood insurance
-                premiums nationwide.
-              </p>
-              <p>
-                Now, I'm pursuing a
-                <strong
-                  >Master's in Artificial Intelligence at Johns Hopkins</strong
-                >, drawn by a clear research vision: applying machine learning
-                to geospatial and environmental datasets to dramatically improve
-                how we predict, communicate, and respond to flood and climate
-                hazards. I believe AI-augmented geospatial intelligence is one
-                of the highest-leverage opportunities available to environmental
-                science today.
-              </p>
-              <p>
-                I'm seeking roles in
-                <strong>research innovation leadership</strong> — directing
-                programs at the frontier of geospatial AI and environmental
-                modeling, where technical depth and mission impact go hand in
-                hand.
-              </p>
-            </div>
+  <p>
+    My career began with <strong>environmental science</strong> and a
+    fascination with using data and technology to better understand complex
+    problems in the world around us. That foundation led me to geospatial
+    technology, where I have spent the past 15 years designing, building,
+    modernizing, and leading systems that turn spatial data into information
+    people can use to make consequential decisions.
+  </p>
+
+  <p>
+    My experience spans both
+    <strong>hands-on technical work and national-scale technology leadership</strong>.
+    I have built spatial data workflows, helped modernize FEMA's flood-risk
+    infrastructure, led large multidisciplinary delivery teams, and now support
+    strategic geospatial situational awareness for homeland security missions.
+    That combination has given me a perspective that extends beyond any single
+    technology: I understand the data, the systems, the users, and the
+    operational decisions those systems ultimately need to support.
+  </p>
+
+  <p>
+    Today, I believe <strong>artificial intelligence represents the next major
+    evolution in geospatial technology</strong>. AI is rapidly transforming
+    fields such as finance, healthcare, and software engineering, yet enormous
+    opportunity remains to bring these capabilities into geospatial,
+    environmental, emergency-management, infrastructure, and national-security
+    applications.
+  </p>
+
+  <p>
+    That opportunity is what led me back to graduate school. I am currently
+    pursuing a <strong>Master's in Artificial Intelligence at Johns Hopkins
+    University</strong>, building deeper expertise in machine learning,
+    recommender systems, computer vision, natural language processing, and
+    intelligent systems while exploring how these methods can be applied to
+    spatial problems.
+  </p>
+
+  <p>
+    I'm especially interested in the difficult problems that sit between
+    disciplines — the puzzles where geospatial information, artificial
+    intelligence, domain knowledge, and operational requirements all need to
+    come together. My goal is to help bridge the gap between mature geospatial
+    systems and rapidly advancing AI capabilities, turning emerging technology
+    into tangible tools that deliver value to the mission.
+  </p>
+
+  <p>
+    <strong>
+      I am seeking research and innovation roles where I can work directly on
+      those problems — investigating new approaches, building and evaluating
+      solutions, and helping shape the intelligent geospatial systems of
+      tomorrow.
+    </strong>
+  </p>
+</div>
           </div>
           <div class="skills-grid">
             <div class="skill-tag-group">
@@ -1165,7 +1272,7 @@
                 FEMA · NiyamIT · National Flood Insurance Program
               </p>
               <h3 class="project-title">
-                Risk Rating Engine 2.0 — Modernizing the Science Behind Flood
+                Risk Rating Engine 2.0 — Transforming the Science Behind Flood
                 Insurance Pricing
               </h3>
               <p class="project-desc">
@@ -1213,22 +1320,18 @@
             <div class="project-content">
               <p class="project-org">FEMA · IBM · Risk Analysis & Management</p>
               <h3 class="project-title">
-                Risk Analysis & Management (RAM) System — Spatial Decision
-                Intelligence for Flood Managers
+                Risk Analysis & Management (RAM) System — Modernizing FEMA's National Flood Risk Technology Platform
               </h3>
               <p class="project-desc">
-                The Risk MAP Program utilizes the RAM System which is one of
-                FEMA's core spatial decision-support platforms, enabling federal
-                and state flood risk managers to query, analyze, and visualize
-                the full body of national flood mapping data. Leading the Risk
-                MAP IT delivery , I managed a 100+ person cross-functional
+                The Risk MAP Program utilizes the RAM System which is an enterprise suite of applications that enable critical business processes across flood hazard mapping, project and program management, mitigation planning, engineering data management, and related workflows used by FEMA staff, contractors, and Cooperating Technical Partners. Leading the Risk
+                MAP IT delivery, I managed a 100+ person cross-functional
                 organization through IT modernization initiative and a complete
                 security authorization process to achieve Authority to Operate
                 (ATO), while simultaneously delivering 20+ system enhancements
                 in a single year.
               </p>
               <p class="project-desc">
-                My technical contributions went beyond program management: I
+                My role extended beyond program management: I
                 served as the domain translator between FEMA's engineering
                 scientists, the IT architects, and the policy stakeholders — a
                 role that required genuine fluency in how spatial flood data is
@@ -1371,7 +1474,238 @@
         </div>
       </div>
     </section>
+    <!-- ── AI / ML GRADUATE PROJECTS ─────────────────────────────── -->
+<section id="ai-projects">
+  <div class="container">
 
+    <p class="section-label reveal">Building AI Expertise</p>
+
+    <h2 class="section-title reveal">
+      Artificial Intelligence &amp; Machine Learning Projects
+    </h2>
+
+    <p class="section-intro reveal">
+      Through my graduate studies in Artificial Intelligence at Johns Hopkins
+      University, I am building hands-on experience across machine learning,
+      computer vision, information retrieval, recommender systems, and
+      production-oriented AI. These projects give me a technical foundation
+      that I am working to combine with my extensive background in geospatial
+      systems and mission-driven technology.
+    </p>
+
+    <div class="ai-projects-grid">
+
+      <!-- SecureBank -->
+      <div class="ai-project-card reveal">
+        <p class="ai-project-label">
+          Machine Learning · Fraud Detection
+        </p>
+
+        <h3 class="ai-project-title">
+          SecureBank — Fraud Detection System
+        </h3>
+
+        <p class="ai-project-desc">
+          Developed an end-to-end machine learning system for detecting
+          fraudulent financial transactions in highly imbalanced data.
+          Engineered behavioral transaction features, compared classification
+          approaches, evaluated model performance using precision, recall,
+          F1, and precision-recall metrics, and integrated model inference
+          into a Flask-based service.
+        </p>
+
+        <div class="ai-project-result">
+          <strong>What I explored:</strong>
+          How feature engineering, model selection, probability thresholds,
+          and operational tradeoffs affect fraud detection when positive
+          cases are extremely rare.
+        </div>
+
+        <div class="ai-project-tags">
+          <span class="project-badge">Python</span>
+          <span class="project-badge">scikit-learn</span>
+          <span class="project-badge">Random Forest</span>
+          <span class="project-badge">Feature Engineering</span>
+          <span class="project-badge">Imbalanced Data</span>
+          <span class="project-badge">Flask</span>
+        </div>
+      </div>
+
+      <!-- MovieMate -->
+      <div class="ai-project-card reveal">
+        <p class="ai-project-label">
+          Recommender Systems
+        </p>
+
+        <h3 class="ai-project-title">
+          MovieMate — Personalized Recommendation Engine
+        </h3>
+
+        <p class="ai-project-desc">
+          Built and evaluated collaborative filtering, content-based
+          filtering, and rule-based recommendation approaches using user
+          preferences and movie metadata. Compared model performance across
+          the overall population and demographic user segments using graded
+          ranking metrics.
+        </p>
+
+        <div class="ai-project-result">
+          <strong>What I explored:</strong>
+          How different recommendation strategies perform for different user
+          populations, and how validation design and ranking metrics influence
+          model selection.
+        </div>
+
+        <div class="ai-project-tags">
+          <span class="project-badge">Recommender Systems</span>
+          <span class="project-badge">Collaborative Filtering</span>
+          <span class="project-badge">Content-Based Filtering</span>
+          <span class="project-badge">NDCG</span>
+          <span class="project-badge">Model Evaluation</span>
+        </div>
+      </div>
+
+      <!-- TextWave -->
+      <div class="ai-project-card reveal">
+        <p class="ai-project-label">
+          NLP · Information Retrieval
+        </p>
+
+        <h3 class="ai-project-title">
+          TextWave — Retrieval-Augmented Question Answering
+        </h3>
+
+        <p class="ai-project-desc">
+          Developed components of a retrieval-based question-answering system
+          that converts text into vector embeddings, indexes knowledge using
+          FAISS, retrieves semantically similar information, and supports
+          downstream answer generation and reranking.
+        </p>
+
+        <div class="ai-project-result">
+          <strong>What I explored:</strong>
+          How embeddings, vector indexing, nearest-neighbor retrieval,
+          reranking, and language models can work together to ground AI
+          responses in external knowledge.
+        </div>
+
+        <div class="ai-project-tags">
+          <span class="project-badge">RAG</span>
+          <span class="project-badge">FAISS</span>
+          <span class="project-badge">Embeddings</span>
+          <span class="project-badge">Transformers</span>
+          <span class="project-badge">NLP</span>
+          <span class="project-badge">Semantic Search</span>
+        </div>
+      </div>
+
+      <!-- TechTrack -->
+      <div class="ai-project-card reveal">
+        <p class="ai-project-label">
+          Computer Vision · Object Detection
+        </p>
+
+        <h3 class="ai-project-title">
+          TechTrack — Computer Vision Object Detection
+        </h3>
+
+        <p class="ai-project-desc">
+          Evaluated competing YOLO-based object detection models across
+          twenty logistics and safety classes. Implemented detection matching,
+          non-maximum suppression, precision-recall analysis, and
+          average-precision evaluation while examining performance
+          differences across object classes.
+        </p>
+
+        <div class="ai-project-result">
+          <strong>What I explored:</strong>
+          How detection confidence, intersection-over-union thresholds,
+          class imbalance, and per-class precision influence the practical
+          usefulness of computer vision models.
+        </div>
+
+        <div class="ai-project-tags">
+          <span class="project-badge">Computer Vision</span>
+          <span class="project-badge">YOLO</span>
+          <span class="project-badge">Object Detection</span>
+          <span class="project-badge">IoU</span>
+          <span class="project-badge">Precision / Recall</span>
+          <span class="project-badge">OpenCV</span>
+        </div>
+      </div>
+
+      <!-- Ironclad -->
+      <div class="ai-project-card reveal">
+        <p class="ai-project-label">
+          Computer Vision · Vector Search
+        </p>
+
+        <h3 class="ai-project-title">
+          Ironclad — Face Identification &amp; Vector Search
+        </h3>
+
+        <p class="ai-project-desc">
+          Built a face-identification system combining deep neural network
+          embeddings with FAISS vector search. Compared multiple indexing
+          approaches and similarity measures while evaluating identification
+          accuracy across different gallery configurations.
+        </p>
+
+        <div class="ai-project-result">
+          <strong>What I explored:</strong>
+          How neural embeddings, similarity metrics, approximate nearest
+          neighbor search, and gallery composition affect identification
+          performance.
+        </div>
+
+        <div class="ai-project-tags">
+          <span class="project-badge">Deep Learning</span>
+          <span class="project-badge">Face Recognition</span>
+          <span class="project-badge">FAISS</span>
+          <span class="project-badge">Vector Search</span>
+          <span class="project-badge">PyTorch</span>
+          <span class="project-badge">Flask</span>
+        </div>
+      </div>
+
+      <!-- Future Geospatial AI -->
+      <div class="ai-project-card reveal">
+        <p class="ai-project-label">
+          Next Step · Geospatial AI
+        </p>
+
+        <h3 class="ai-project-title">
+          Bringing AI Back to Spatial Problems
+        </h3>
+
+        <p class="ai-project-desc">
+          My next step is applying the AI techniques I am developing through
+          graduate study to the geospatial domain I know deeply — exploring
+          how machine learning, computer vision, retrieval systems, spatial
+          indexing, and intelligent agents can improve environmental,
+          infrastructure, emergency-management, and national-security
+          applications.
+        </p>
+
+        <div class="ai-project-result">
+          <strong>Research direction:</strong>
+          Bridging mature geospatial systems with emerging AI capabilities
+          to develop practical, explainable, mission-focused solutions to
+          difficult spatial problems.
+        </div>
+
+        <div class="ai-project-tags">
+          <span class="project-badge">Spatial AI</span>
+          <span class="project-badge">Geospatial Reasoning</span>
+          <span class="project-badge">Remote Sensing</span>
+          <span class="project-badge">AI Agents</span>
+          <span class="project-badge">Decision Support</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
     <!-- ── EXPERIENCE TIMELINE ────────────────────────────────────── -->
     <section id="experience">
       <div class="container">
@@ -1517,12 +1851,12 @@
                 />
               </svg>
             </div>
-            <h3>AI-Augmented Flood Prediction</h3>
+            <h3>Emerging Geospatial Technologies</h3>
             <p>
-              Applying deep learning to integrate multi-source hydrological,
-              topographic, and atmospheric data for real-time flood forecasting
-              — moving beyond zone-based static risk to dynamic, address-level
-              prediction models.
+              Exploring new approaches such as foundation models, generative AI,
+              retrieval-augmented systems, AI agents, and scalable spatial
+              indexing to understand where emerging technologies can meaningfully
+              improve geospatial workflows and mission outcomes.
             </p>
           </div>
           <div class="research-card reveal">
@@ -1542,9 +1876,9 @@
             <h3>Geospatial Remote Sensing & ML</h3>
             <p>
               Using machine learning applied to LiDAR point clouds, SAR imagery,
-              and multispectral satellite data to improve floodplain delineation
-              accuracy — reducing the manual engineering burden and increasing
-              update frequency.
+              and multispectral satellite data to to automate feature detection, identify
+              change, characterize environments, and extract actionable spatial
+              intelligence.
             </p>
           </div>
           <div class="research-card reveal">
@@ -1555,13 +1889,14 @@
                 />
               </svg>
             </div>
-            <h3>Climate Risk Probabilistic Modeling</h3>
+            <h3>Environmental AI &amp; Resilience</h3>
             <p>
-              Building probabilistic models that incorporate climate projections
-              into flood risk assessments — enabling communities to plan for 30-
-              and 50-year risk horizons rather than relying solely on historical
-              recurrence intervals.
+              Bringing AI into climate risk probabilistic modeling, natural-hazard analysis,
+              climate resilience, ecosystem monitoring, and other areas where
+              geospatial data can support better understanding of complex natural
+              systems.
             </p>
+
           </div>
           <div class="research-card reveal">
             <div class="research-icon">
@@ -1570,12 +1905,12 @@
                 <polyline points="9 22 9 12 15 12 15 22" />
               </svg>
             </div>
-            <h3>Community Resilience Intelligence</h3>
+            <h3>AI-Powered Decision Support</h3>
             <p>
-              Combining geospatial AI with socioeconomic and demographic data to
-              identify flood-vulnerable communities that are systematically
-              underserved by current risk communication tools — bridging the
-              data equity gap.
+              Designing intelligent systems that synthesize complex spatial and
+              non-spatial information into actionable insights while preserving
+              transparency, traceability, and human judgment in consequential
+              decisions.
             </p>
           </div>
           <div class="research-card reveal">
@@ -1593,12 +1928,11 @@
                 />
               </svg>
             </div>
-            <h3>Real-Time Geospatial Data Pipelines</h3>
+            <h3>Real-Time Geospatial Intelligence</h3>
             <p>
-              Designing scalable cloud-native architectures for ingesting and
-              processing real-time sensor, radar, and satellite feeds into
-              operational flood situational awareness platforms like DHS's
-              Common Operating Picture.
+              Designing scalable architectures for ingesting and processing live sensor feeds,
+              operational data, spatial indexing, and AI to detect emerging
+              conditions and support timely situational awareness.
             </p>
           </div>
           <div class="research-card reveal">
@@ -1734,7 +2068,7 @@
                     /></svg
                 ></span>
                 <span
-                  ><strong>DHS FAC-COR Level 2</strong><br />Department of
+                  ><strong>DHS FAC-COR Level 3</strong><br />Department of
                   Homeland Security</span
                 >
               </div>
@@ -1750,8 +2084,8 @@
         <p class="section-label">Let's Connect</p>
         <h2 class="section-title">Open to Research &amp; Innovation Roles</h2>
         <p>
-          I'm actively seeking leadership positions at the intersection of
-          geospatial AI and environmental modeling —<br />
+          I'm actively seeking positions at the intersection of
+          geospatial AI and environmental research —<br />
           research director, program lead, or senior technical advisor roles
           where I can drive meaningful scientific impact.
         </p>
@@ -1827,7 +2161,7 @@
     </section>
 
     <footer>
-      <p>© 2026 Eliza Ledwell · PMP · Geospatial AI & Environmental Research</p>
+      <p>© 2026 Eliza Ledwell · PMP · Geospatial Systems, AI & Mission Innovation</p>
     </footer>
 
     <script>
